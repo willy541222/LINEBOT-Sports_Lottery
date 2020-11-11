@@ -34,8 +34,8 @@ def send_calc(event, mode, mtext):
     datalist = mtext.split('/')
     try:
         if mode == 'high':
-            high_principle = datalist[0]
-            high_odds = datalist[1]
+            high_principle = int(datalist[0])
+            high_odds = int(datalist[1])
             #計算出低賠本金
             low_principle = high_principle * (high_odds -1)
 
