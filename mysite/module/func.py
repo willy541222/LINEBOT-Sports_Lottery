@@ -41,9 +41,9 @@ def send_calc(event, mode, mtext):
             #無條件捨去，因為一注為10元
             b = low_principle % 10
             if int(b) != 9:
-                low_principle = low_principle - b
+                low_principle = int(low_principle) - b
             else:
-                low_principle = low_principle - b + 10
+                low_principle = int(low_principle) - b + 10
 
             #計算出最少低賠率
             low_odds = high_principle / low_principle + 1
