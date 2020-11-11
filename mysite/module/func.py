@@ -31,8 +31,8 @@ def Togglemode(event, mode, userid):
 
 #計算本金賠率
 def send_calc(event, mode, mtext):
+    datalist = mtext.split( )
     try:
-        datalist = mtext.split(' ')
         if mode == 'high':
             high_principle = datalist[0]
             high_odds = datalist[1]
