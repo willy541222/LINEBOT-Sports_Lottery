@@ -85,7 +85,8 @@ def send_calc(event, mode, mtext):
             )
             line_bot_api.reply_message(event.reply_token,message)
     except:
-        text2 = mtext.split('/')[0] 
+        text2 = int(mtext.split('/')[0])
+        text2 += type(text2) 
         text2 += "\n請輸入正確格式"
         text2 += "\n如以下範例"
         text2 += "\n本金(空格)賠率"
