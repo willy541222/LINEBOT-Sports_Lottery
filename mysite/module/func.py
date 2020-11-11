@@ -50,10 +50,10 @@ def send_calc(event, mode, mtext):
             buy_low_odds =  decimal.Decimal(low_odds).quantize(decimal.Decimal('0.01'),rounding=decimal.ROUND_UP)
 
             text1 = "現在的模式為高賠率換算低賠率"
-            text1 += "\n高賠率本金 : " + high_principle
-            text1 += "\n高賠率為 : " + high_odds
-            text1 += "\n低賠率本金為 : " + low_principle
-            text1 += "\n低賠率為 : " + buy_low_odds 
+            text1 += "\n高賠率本金 : " + str(high_principle)
+            text1 += "\n高賠率為 : " + str(high_odds)
+            text1 += "\n低賠率本金為 : " + str(low_principle)
+            text1 += "\n低賠率為 : " + str(buy_low_odds) 
             message = TextSendMessage(
                 text = text1
             )
@@ -85,8 +85,7 @@ def send_calc(event, mode, mtext):
             )
             line_bot_api.reply_message(event.reply_token,message)
     except:
-        text2 = int(mtext.split('/')[0])
-        text2 += type(text2) 
+        text2 = mtext.split('/')[0] 
         text2 += "\n請輸入正確格式"
         text2 += "\n如以下範例"
         text2 += "\n本金(空格)賠率"
