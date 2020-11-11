@@ -87,8 +87,8 @@ def send_calc(event, mode, mtext):
             line_bot_api.reply_message(event.reply_token,message)
     except:
         text2 = datalist
-        text2 += "請輸入正確格式"
-        text2 += "如以下範例"
+        text2 += "\n請輸入正確格式"
+        text2 += "\n如以下範例"
         text2 += "\n本金(空格)賠率"
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text = text2))           
 
