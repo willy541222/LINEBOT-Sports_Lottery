@@ -31,11 +31,10 @@ def Togglemode(event, mode, userid):
 
 #計算本金賠率
 def send_calc(event, mode, mtext):
-    datalist = mtext.split('/')
     try:
         if mode == 'high':
-            high_principle = int(datalist[0])
-            high_odds = int(datalist[1])
+            high_principle = mtext.split('/')[0] 
+            high_odds = mtext.split('/')[1] 
             #計算出低賠本金
             low_principle = high_principle * (high_odds -1)
 
@@ -60,8 +59,8 @@ def send_calc(event, mode, mtext):
             )
             line_bot_api.reply_message(event.reply_token,message)
         else:
-            low_principle = datalist[0]
-            low_odds = datalist[1]
+            low_principle = mtext.split('/')[0]
+            low_odds = mtext.split('/')[1]
             #計算出高賠率本金
             high_principle = (low_odds - 1) * low_principle
             
