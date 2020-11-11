@@ -51,9 +51,9 @@ def send_calc(event, mode, mtext):
             buy_low_odds =  decimal.Decimal(low_odds).quantize(decimal.Decimal('0.01'),rounding=decimal.ROUND_UP)
 
             text1 = "模式為高賠率換算低賠率"
-            text1 += "\n高賠率本金 : " + str(high_principle)
+            text1 += "\n高賠率本金 : " + str(high_principle) + "元"
             text1 += "\n高賠率為 : " + str(high_odds)
-            text1 += "\n低賠率本金為 : " + str(low_principle)
+            text1 += "\n低賠率本金為 : " + str(low_principle) + "元"
             text1 += "\n低賠率為 : " + str(buy_low_odds) 
             message = TextSendMessage(
                 text = text1
@@ -78,9 +78,9 @@ def send_calc(event, mode, mtext):
             buy_high_odds =  decimal.Decimal(high_odds).quantize(decimal.Decimal('0.01'),rounding=decimal.ROUND_UP)
             
             text1 = "模式為高賠率換算低賠率"
-            text1 += "\n低賠率本金 : " + str(low_principle)
+            text1 += "\n低賠率本金 : " + str(low_principle) + "元"
             text1 += "\n低賠率為 : " + str(low_odds)
-            text1 += "\n高賠率本金為 : " + str(high_principle)
+            text1 += "\n高賠率本金為 : " + str(high_principle) + "元"
             text1 += "\n高賠率為 : " + str(buy_high_odds) 
             message = TextSendMessage(
                 text = text1
