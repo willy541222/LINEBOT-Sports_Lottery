@@ -77,7 +77,7 @@ def send_calc(event, mode, mtext):
             high_odds = (low_principle * low_odds) / high_principle
             buy_high_odds =  decimal.Decimal(high_odds).quantize(decimal.Decimal('0.01'),rounding=decimal.ROUND_UP)
             
-            text1 = "模式為高賠率換算低賠率"
+            text1 = "模式為低賠率換算高賠率"
             text1 += "\n低賠率本金 : " + str(low_principle) + "元"
             text1 += "\n低賠率為 : " + str(low_odds)
             text1 += "\n高賠率本金為 : " + str(high_principle) + "元"
