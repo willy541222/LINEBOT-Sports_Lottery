@@ -86,7 +86,8 @@ def send_calc(event, mode, mtext):
                 text = text1
             )
             line_bot_api.reply_message(event.reply_token,message)
-    except: 
+    except:
+        #輸入錯誤則顯示正確格式範例
         text2 = "請輸入正確格式"
         text2 += "\n如以下範例"
         text2 += "\n本金/賠率"
