@@ -104,13 +104,6 @@ def game_processing(event):
         res = requests.get("https://www.sportslottery.com.tw/api/services/app/LiveGames/GetLiveOnAndRegister?isContainRegister=false", headers = headers)
         #print(res.status_code) #顯示網頁回傳狀態
         data = res.json()
-
-        #Test json file in local
-        #path = '2.json'
-        #with open(path,"rb") as f :
-            #data = json.load(f)
-            #print(data)   #讀取出來的資料型別為dict型
-
         Game_data = data['result']['liveOn']
 
         if len(Game_data) == 0:
@@ -121,11 +114,11 @@ def game_processing(event):
             line_bot_api.reply_message(event.reply_token,message)
         else:
             for i in range(len(Game_data)):
-                Game_name = Game_data[i]['ln'][0]
-                player_one_chinese = Game_data[i]['atn'][0]
-                #player_one_english = Game_data[i]['atn'][1]
-                player_two_chinese = Game_data[i]['htn'][0]
-                #player_two_english = Game_data[i]['htn'][1]
+                Game_name = Game_data[i]['ln'][0] #比賽名稱
+                player_one_chinese = Game_data[i]['atn'][0] #中文名字
+                #player_one_english = Game_data[i]['atn'][1] #英文名字
+                player_two_chinese = Game_data[i]['htn'][0] #中文名字
+                #player_two_english = Game_data[i]['htn'][1] #英文名字
                 player_one_score = Game_data[i]['as'].get('10') #當局分數 ex:tennis 
                 player_two_score = Game_data[i]['hs'].get('10') #當局分數 ex:tennis
                 
@@ -133,11 +126,11 @@ def game_processing(event):
                 text3 += player_one_chinese + " : " + player_two_chinese + "\n"
                 for b in range(len(Game_data[i]['as'])):
                     b = b + 1
-                    player_one_as = Game_data[i]['as'].get(str(b))
+                    player_one_as = Game_data[i]['as'].get(str(b)) #分數
                     if player_one_as == -1 :
                         break
                     else:
-                        player_two_hs = Game_data[i]['hs'].get(str(b))
+                        player_two_hs = Game_data[i]['hs'].get(str(b)) #分數
                         text3 += "第"+ str(b) +"局" + str(player_one_as) + " : " + str(player_two_hs) + "\n"
                 
                 if player_one_score != -1:
