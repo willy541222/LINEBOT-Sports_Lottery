@@ -122,7 +122,7 @@ def game_processing(event):
                 player_one_score = Game_data[i]['as'].get('10') #當局分數 ex:tennis 
                 player_two_score = Game_data[i]['hs'].get('10') #當局分數 ex:tennis
                 
-                text3 = Game_name  + "\n"
+                text3 += Game_name  + "\n"
                 text3 += player_one_chinese + " : " + player_two_chinese + "\n"
                 for b in range(len(Game_data[i]['as'])):
                     b = b + 1
@@ -135,6 +135,7 @@ def game_processing(event):
                 
                 if player_one_score != -1:
                     text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n"
+
         message = TextSendMessage(
             text = text3
         )
