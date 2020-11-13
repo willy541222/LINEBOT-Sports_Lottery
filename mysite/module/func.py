@@ -136,7 +136,7 @@ def game_processing(event):
                 
                 if player_one_score != -1:
                     text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n"
-            message.append = TextSendMessage(
+            message = TextSendMessage(
                 text = text3
             )
             line_bot_api.reply_message(event.reply_token,message)
