@@ -141,6 +141,8 @@ def game_processing(event):
                 if res1.status_code == 200 :
                     text3 += "場中動畫連結\n"
                     text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['id']) + "\n"
+                if Game_data[i]['si'] == 441:
+                    text3 += str(Game_data[i]['ed'].get("AllRemainingTime"))
                     
             message = TextSendMessage(
                 text = text3
