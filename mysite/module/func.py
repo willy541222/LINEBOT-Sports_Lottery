@@ -140,11 +140,11 @@ def game_processing(event):
                         break
                     else:
                         player_two_hs = Game_data[i]['hs'].get(str(b))
-                        text3 += "第"+ b +"局 " + player_one_as + " : " + player_two_hs + "\n"
+                        #text3 += "第"+ b +"局 " + player_one_as + " : " + player_two_hs + "\n"
                         #print("第{}局 {} : {}".format(b, player_one_as, player_two_hs))
                 
-                if player_one_score != -1:
-                    text3 += "當盤分數" + player_one_score + " : " + player_two_score + "\n"
+                #if player_one_score != -1:
+                    #text3 += "當盤分數" + player_one_score + " : " + player_two_score + "\n"
                     #print("{} : {}".format(player_one_score, player_two_score))
             message = TextSendMessage(
                 text = text3
