@@ -136,7 +136,7 @@ def game_processing(event):
                 
                 #if player_one_score != -1:
                 if Game_data[i]['si'] == 445:
-                    text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n"
+                    text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n" #網球當局分數
                 
                 if Game_data[i]['si'] == 441:
                     text3 += "目前進行時間 : " + Game_data[i]['ed'][21:23] + " 分鐘\n" #足球目前進行時間
