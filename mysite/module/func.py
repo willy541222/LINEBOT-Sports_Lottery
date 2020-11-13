@@ -116,7 +116,7 @@ def game_processing(event):
         if len(Game_data) == 0:
             text3 = "目前沒有任何賽事"
             message = TextSendMessage(
-                text = text3
+                text = text4
             )
             line_bot_api.reply_message(event.reply_token,message)
         else:
@@ -146,8 +146,6 @@ def game_processing(event):
                 if player_one_score != -1:
                     text3 += "當盤分數" + player_one_score + " : " + player_two_score + "\n"
                     #print("{} : {}".format(player_one_score, player_two_score))
-                else:
-                    break
             message = TextSendMessage(
                 text = text3
             )
