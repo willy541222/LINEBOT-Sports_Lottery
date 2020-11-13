@@ -136,6 +136,12 @@ def game_processing(event):
                 
                 if player_one_score != -1:
                     text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n"
+
+                res1 = requests.get("https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID={}".format(Game_data[i]['id']), headers = headers)
+                if res1.status_code == 200 :
+                    text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['id'])
+                    
+
             message = TextSendMessage(
                 text = text3
             )
