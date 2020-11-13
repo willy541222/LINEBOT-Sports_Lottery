@@ -114,7 +114,7 @@ def game_processing(event):
         Game_data = data['result']['liveOn']
 
         if len(Game_data) == 0:
-            print("目前沒有任何賽事")
+            text3 = "目前沒有任何賽事"
         else:
             for i in range(len(Game_data)):
                 Game_name = Game_data[i]['ln'][0]
