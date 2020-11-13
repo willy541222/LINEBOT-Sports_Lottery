@@ -115,6 +115,10 @@ def game_processing(event):
 
         if len(Game_data) == 0:
             text3 = "目前沒有任何賽事"
+            message = TextSendMessage(
+                text = text3
+            )
+            line_bot_api.reply_message(event.reply_token,message)
         else:
             for i in range(len(Game_data)):
                 Game_name = Game_data[i]['ln'][0]
