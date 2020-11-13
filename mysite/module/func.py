@@ -3,6 +3,8 @@ from django.conf import settings
 from linebot import LineBotApi, WebhookParser
 from linebot.models import TextSendMessage, QuickReply, QuickReplyButton, MessageAction, TemplateSendMessage, ConfirmTemplate, MessageTemplateAction, PostbackTemplateAction
 import os, json, requests
+import random
+from fake_useragent import UserAgent
 import math
 import decimal
 import variable_settings as varset
@@ -92,6 +94,61 @@ def send_calc(event, mode, mtext):
         text2 += "\n如以下範例"
         text2 += "\n本金/賠率"
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text = text2))           
+
+#場中賽況
+def game_processing(event):
+    try:
+        ua = UserAgent()
+        user_agent = ua.random
+        headers = {'user-agent': user_agent}
+        res = requests.get("https://www.sportslottery.com.tw/api/services/app/LiveGames/GetLiveOnAndRegister?isContainRegister=false", headers = headers)
+        #print(res.status_code) #顯示網頁回傳狀態
+        data = res.json()
+
+        #Test json file in local
+        #path = '2.json'
+        #with open(path,"rb") as f :
+            #data = json.load(f)
+            #print(data)   #讀取出來的資料型別為dict型
+
+        Game_data = data['result']['liveOn']
+
+        if len(Game_data) == 0:
+            print("目前沒有任何賽事")
+        else:
+            for i in range(len(Game_data)):
+                Game_name = Game_data[i]['ln'][0]
+                player_one_chinese = Game_data[i]['atn'][0]
+                #player_one_english = Game_data[i]['atn'][1]
+                player_two_chinese = Game_data[i]['htn'][0]
+                #player_two_english = Game_data[i]['htn'][1]
+                player_one_score = Game_data[i]['as'].get('10') #當局分數 ex:tennis 
+                player_two_score = Game_data[i]['hs'].get('10') #當局分數 ex:tennis
+                
+                text3 = Game_name  + "\n"
+                text3 += player_one_chinese + " : " + player_two_chinese + "\n"
+                #print("\n" + Game_name)
+                #print("{} : {}".format(player_one_chinese,player_two_chinese))
+                for b in range(len(Game_data[i]['as'])):
+                    b = b + 1
+                    player_one_as = Game_data[i]['as'].get(str(b))
+                    if player_one_as == -1 :
+                        break
+                    else:
+                        player_two_hs = Game_data[i]['hs'].get(str(b))
+                        text3 += "第"+ b +"局 " + player_one_as + " : " + player_two_hs + "\n"
+                        #print("第{}局 {} : {}".format(b, player_one_as, player_two_hs))
+                
+                if player_one_score != -1:
+                    text3 += "當盤分數" + player_one_score + " : " + player_two_score + "\n"
+                    #print("{} : {}".format(player_one_score, player_two_score))
+
+            message = TextSendMessage(
+                text = text3
+            )
+            line_bot_api.reply_message(event.reply_token,message)
+    except:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "Error"))
 
 '''
 def sendConfirm(event):
