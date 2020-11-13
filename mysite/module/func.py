@@ -141,9 +141,8 @@ def game_processing(event):
                         text3 += "第"+ str(b) +"局" + str(player_one_as) + " : " + str(player_two_hs) + "\n"
                         #print("第{}局 {} : {}".format(b, player_one_as, player_two_hs))
                 
-                #if player_one_score != -1:
-                    #text3 += "當盤分數" + player_one_score + " : " + player_two_score + "\n"
-                    #print("{} : {}".format(player_one_score, player_two_score))
+                if player_one_score != -1:
+                    text3 += "當盤分數" + player_one_score + " : " + player_two_score + "\n"
             message = TextSendMessage(
                 text = text3
             )
