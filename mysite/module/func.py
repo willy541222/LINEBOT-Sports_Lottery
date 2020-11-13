@@ -131,8 +131,6 @@ def game_processing(event):
                 
                 text3 = Game_name  + "\n"
                 text3 += player_one_chinese + " : " + player_two_chinese + "\n"
-                #print("\n" + Game_name)
-                #print("{} : {}".format(player_one_chinese,player_two_chinese))
                 for b in range(len(Game_data[i]['as'])):
                     b = b + 1
                     player_one_as = Game_data[i]['as'].get(str(b))
@@ -140,7 +138,7 @@ def game_processing(event):
                         break
                     else:
                         player_two_hs = Game_data[i]['hs'].get(str(b))
-                        #text3 += "第"+ b +"局 " + player_one_as + " : " + player_two_hs + "\n"
+                        text3 += "第"+ b +"局 " + player_one_as + " : " + player_two_hs + "\n"
                         #print("第{}局 {} : {}".format(b, player_one_as, player_two_hs))
                 
                 #if player_one_score != -1:
