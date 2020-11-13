@@ -114,7 +114,7 @@ def game_processing(event):
         Game_data = data['result']['liveOn']
 
         if len(Game_data) == 0:
-            text3 = "目前沒有任何賽事"
+            text4 = "目前沒有任何賽事"
             message = TextSendMessage(
                 text = text4
             )
