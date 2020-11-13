@@ -113,7 +113,7 @@ def game_processing(event):
             )
             line_bot_api.reply_message(event.reply_token,message)
         else:
-            text[i] = str
+            text = []
             for i in range(len(Game_data)):
                 Game_name = Game_data[i]['ln'][0] #比賽名稱
                 player_one_chinese = Game_data[i]['atn'][0] #中文名字
@@ -136,11 +136,11 @@ def game_processing(event):
                 
                 if player_one_score != -1:
                     text[i] += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n"
-
-                message = TextSendMessage(
-                    text = text[i]
-                )
-        line_bot_api.reply_message(event.reply_token,message)
+                    text3 = ','.join(text[i])
+            message = TextSendMessage(
+                text = text3
+            )
+            line_bot_api.reply_message(event.reply_token,message)
     except:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "Error"))
 
