@@ -138,7 +138,7 @@ def game_processing(event):
                     text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n"
                 
                 if Game_data[i]['si'] == 441:
-                    text3 += "目前進行時間 : " + Game_data[i]['ed'][21:23]
+                    text3 += "目前進行時間 : " + Game_data[i]['ed'][21:23] + "\n" #足球目前進行時間
 
                 res1 = requests.get("https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID={}".format(Game_data[i]['id']), headers = headers)
                 if res1.status_code == 200 :
