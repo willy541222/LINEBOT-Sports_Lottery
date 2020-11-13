@@ -120,6 +120,8 @@ def callback(request):
         mtext = event.message.text
         if mtext == '@賠率換算':
             func.Togglemode(event, mode, userid)
+        elif mtext == '@場中賽況':
+            func.game_processing(event)
         else :
             func.send_calc(event, mode, mtext)
 
