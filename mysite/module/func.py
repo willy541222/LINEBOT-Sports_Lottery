@@ -146,7 +146,8 @@ def game_processing(event):
                 if player_one_score != -1:
                     text3 += "當盤分數" + player_one_score + " : " + player_two_score + "\n"
                     #print("{} : {}".format(player_one_score, player_two_score))
-
+                else:
+                    continue
             message = TextSendMessage(
                 text = text3
             )
