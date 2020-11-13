@@ -1,7 +1,7 @@
 from django.conf import settings
 
 from linebot import LineBotApi, WebhookParser
-from linebot.models import TextSendMessage, QuickReply, QuickReplyButton, MessageAction, TemplateSendMessage, ConfirmTemplate, MessageTemplateAction, PostbackTemplateAction
+from linebot.models import TextSendMessage, QuickReply, QuickReplyButton, MessageAction, TemplateSendMessage, ConfirmTemplate, MessageTemplateAction, PostbackTemplateAction, FlexSendMessage
 import os, json, requests
 import random
 from fake_useragent import UserAgent
@@ -139,7 +139,7 @@ def game_processing(event):
 
                 res1 = requests.get("https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID={}".format(Game_data[i]['id']), headers = headers)
                 if res1.status_code == 200 :
-                    text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['id'])
+                    text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['id']) + "\n"
                     
 
             message = TextSendMessage(
