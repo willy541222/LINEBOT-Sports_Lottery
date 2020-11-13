@@ -113,7 +113,6 @@ def game_processing(event):
             )
             line_bot_api.reply_message(event.reply_token,message)
         else:
-            text = []
             for i in range(len(Game_data)):
                 Game_name = Game_data[i]['ln'][0] #比賽名稱
                 player_one_chinese = Game_data[i]['atn'][0] #中文名字
@@ -123,8 +122,8 @@ def game_processing(event):
                 player_one_score = Game_data[i]['as'].get('10') #當局分數 ex:tennis 
                 player_two_score = Game_data[i]['hs'].get('10') #當局分數 ex:tennis
 
-                text[i] += Game_name  + "\n"
-                text[i] += player_one_chinese + " : " + player_two_chinese + "\n"
+                text3 = Game_name  + "\n"
+                text3 += player_one_chinese + " : " + player_two_chinese + "\n"
                 for b in range(len(Game_data[i]['as'])):
                     b = b + 1
                     player_one_as = Game_data[i]['as'].get(str(b)) #分數
@@ -132,15 +131,15 @@ def game_processing(event):
                         break
                     else:
                         player_two_hs = Game_data[i]['hs'].get(str(b)) #分數
-                        text[i] += "第"+ str(b) +"局" + str(player_one_as) + " : " + str(player_two_hs) + "\n"
+                        text3 += "第"+ str(b) +"局" + str(player_one_as) + " : " + str(player_two_hs) + "\n"
                 
                 if player_one_score != -1:
-                    text[i] += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n"
-                    text3 = ','.join(text[i])
-            message = TextSendMessage(
-                text = text3
-            )
-            line_bot_api.reply_message(event.reply_token,message)
+                    text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n"
+
+        message = TextSendMessage(
+            text = text3
+        )
+        line_bot_api.reply_message(event.reply_token,message)
     except:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "Error"))
 
