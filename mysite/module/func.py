@@ -139,8 +139,9 @@ def game_processing(event):
                     text0 = text3
                 elif i == 1:
                     text1 = text3
+                text_total = text0+text1
             message.append = TextSendMessage(
-                text = text1 + text0
+                text = text_total
             )
             line_bot_api.reply_message(event.reply_token,message)
     except:
