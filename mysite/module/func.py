@@ -139,9 +139,9 @@ def game_processing(event):
 
                 res1 = requests.get("https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID={}".format(Game_data[i]['id']), headers = headers)
                 if res1.status_code == 200 :
+                    text3 += "場中動畫連結\n"
                     text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['id']) + "\n"
                     
-
             message = TextSendMessage(
                 text = text3
             )
