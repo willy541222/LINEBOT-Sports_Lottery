@@ -134,7 +134,8 @@ def game_processing(event):
                         player_two_hs = Game_data[i]['hs'].get(str(b)) #分數
                         text3 += "第"+ str(b) +"局" + str(player_one_as) + " : " + str(player_two_hs) + "\n"
                 
-                if player_one_score != -1:
+                #if player_one_score != -1:
+                if Game_data[i]['si'] == 445:
                     text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n"
                 
                 if Game_data[i]['si'] == 441:
