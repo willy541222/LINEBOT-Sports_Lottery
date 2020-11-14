@@ -135,16 +135,16 @@ def game_processing(event):
                         text3 += "第"+ str(b) +"局" + str(player_one_as) + " : " + str(player_two_hs) + "\n"
                 
                 #if player_one_score != -1:
-                if Game_data[i]['si'] == 445:
-                    text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n" #網球當局分數
+                if Game_data[i]['si'] == 445: #網球
+                    text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n" #當局分數
                 
-                if Game_data[i]['si'] == 441:
-                    text3 += "目前進行時間 : " + Game_data[i]['ed'][21:23] + " 分鐘\n" #足球目前進行時間
+                if Game_data[i]['si'] == 441: #足球
+                    text3 += "目前進行時間 : " + Game_data[i]['ed'][21:23] + " 分鐘\n" #目前進行時間
 
-                res1 = requests.get("https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID={}".format(Game_data[i]['id']), headers = headers)
+                res1 = requests.get("https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID={}".format(Game_data[i]['mi']), headers = headers)
                 if res1.status_code == 200 :
                     text3 += "場中動畫連結\n"
-                    text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['id']) + "\n"
+                    text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi']) + "\n"
                     
             message = TextSendMessage(
                 text = text3
