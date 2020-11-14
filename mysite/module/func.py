@@ -113,7 +113,6 @@ def game_processing(event):
             )
             line_bot_api.reply_message(event.reply_token,message)
         else:
-            text3 = "目前場中投注的賽事\n"
             for i in range(len(Game_data)):
                 Game_name = Game_data[i]['ln'][0] #比賽名稱
                 player_one_chinese = Game_data[i]['atn'][0] #中文名字
@@ -123,7 +122,7 @@ def game_processing(event):
                 player_one_score = Game_data[i]['as'].get('10') #當局分數 ex:tennis 
                 player_two_score = Game_data[i]['hs'].get('10') #當局分數 ex:tennis
 
-                text3 += Game_name  + "\n"
+                text3 = Game_name  + "\n"
                 text3 += player_one_chinese + " : " + player_two_chinese + "\n"
                 for b in range(len(Game_data[i]['as'])):
                     b = b + 1
@@ -145,10 +144,10 @@ def game_processing(event):
                 if res1.status_code == 200 :
                     text3 += "場中動畫連結\n"
                     text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi']) + "\n"
-                    
-            message = TextSendMessage(
-                text = text3
-            )
+                message0 = TextSendMessage(
+                    text=text3
+                )
+                message.append(message0)
             line_bot_api.reply_message(event.reply_token,message)
     except:
         message1 = [
