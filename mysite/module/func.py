@@ -156,29 +156,29 @@ def game_processing(event):
 def test(event):
     try:
         message = FlexSendMessage(
-            {
+            alt_text="測試"
+            contents={
                 "type": "bubble", 
                 "body": {
                     "type": "box", 
                     "layout": "horizontal", 
                     "contents": [ 
-                    {
+                        {
                         "type": "text", 
                         "text": "Hello,"
-                    },
-                    {
+                        },
+                        {
                         "type": "text", 
                         "text": "World!"
-                    }
+                        }
                     ]
                 }
             }
         )
         line_bot_api.reply_message(event.reply_token,message)
     except:
-        message = FlexSendMessage(
-            alt_text="1310",
-            contents="212121"
+        message = TextSendMessage(
+            text = "Fail"
         )
         line_bot_api.reply_message(event.reply_token,message)
 
