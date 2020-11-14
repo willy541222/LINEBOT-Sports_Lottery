@@ -332,7 +332,7 @@ def test(event):
     except:
         message =StickerSendMessage(
                 package_id='1',
-                sticker_id='105'
+                sticker_id='2'
             )
         line_bot_api.reply_message(event.reply_token, message)
 
