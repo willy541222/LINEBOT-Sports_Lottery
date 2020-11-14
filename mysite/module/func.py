@@ -154,26 +154,49 @@ def game_processing(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "工程師正在修復中"))
 
 def test(event):
-    message = FlexSendMessage(
-        {
-            "type": "bubble", 
-            "body": {
-                "type": "box", 
-                "layout": "horizontal", 
-                "contents": [ 
-                {
-                    "type": "text", 
-                    "text": "Hello,"
-                },
-                {
-                    "type": "text", 
-                    "text": "World!"
+    try:
+        message = FlexSendMessage(
+            {
+                "type": "bubble", 
+                "body": {
+                    "type": "box", 
+                    "layout": "horizontal", 
+                    "contents": [ 
+                    {
+                        "type": "text", 
+                        "text": "Hello,"
+                    },
+                    {
+                        "type": "text", 
+                        "text": "World!"
+                    }
+                    ]
                 }
-                ]
             }
-        }
-    )
-    line_bot_api.reply_message(event.reply_token,message)
+        )
+        line_bot_api.reply_message(event.reply_token,message)
+    except:
+        message = FlexSendMessage(
+            {
+                "type": "bubble", 
+                "body": {
+                    "type": "box", 
+                    "layout": "horizontal", 
+                    "contents": [ 
+                    {
+                        "type": "text", 
+                        "text": "fail,"
+                    },
+                    {
+                        "type": "text", 
+                        "text": "fail!"
+                    }
+                    ]
+                }
+            }
+        )
+        line_bot_api.reply_message(event.reply_token,message)
+
 
 '''
 def sendConfirm(event):
