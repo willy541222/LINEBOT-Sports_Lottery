@@ -330,7 +330,7 @@ def test(event):
                 message = [text3, message1]
                 line_bot_api.reply_message(event.reply_token,message)
     except:
-        message1 = [
+        message = [
             StickerSendMessage(
                 package_id='1',
                 sticker_id='105'
@@ -340,7 +340,7 @@ def test(event):
                 text = "工程師正在修復中"
             )
         ]
-        line_bot_api.reply_message(event.reply_token, message1)
+        line_bot_api.reply_message(event.reply_token, message)
 
 
 
