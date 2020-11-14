@@ -180,7 +180,9 @@ def test(event):
             )
             line_bot_api.reply_message(event.reply_token,message)
         else:
-            text3 = "目前場中投注的賽事"
+            text3 = TextSendMessage(
+                text = "目前場中投注的賽事"
+            ) 
             for i in range(len(Game_data)):
                 Game_name = Game_data[i]['ln'][0] #比賽名稱
                 player_one_chinese = Game_data[i]['atn'][0] #中文名字
