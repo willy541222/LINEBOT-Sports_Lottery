@@ -180,7 +180,6 @@ def test(event):
                         "weight": "bold",
                         "size": "sm",
                         "color": "#999999",
-                        "margin": "none"
                     },
                     {
                         "type": "box",
