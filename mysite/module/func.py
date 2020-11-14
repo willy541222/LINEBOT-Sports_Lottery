@@ -163,6 +163,23 @@ def game_processing(event):
         ]
         line_bot_api.reply_message(event.reply_token, message1)
 
+def test(event):
+    try:
+        message = []
+        message0 = StickerSendMessage(
+                package_id='1',
+                sticker_id='105'
+            )
+        message1 = TextSendMessage(
+            text= "FaIL"
+        )
+        message.append(message0)
+        message.append(message1)
+        line_bot_api.reply_message(event.reply_token, message)
+    except:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "fail"))
+
+
 '''
 def sendConfirm(event):
     try:
