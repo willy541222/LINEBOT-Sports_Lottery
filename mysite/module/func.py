@@ -330,11 +330,7 @@ def test(event):
                 message = [text3, message1]
                 line_bot_api.reply_message(event.reply_token,message)
     except:
-        message =StickerSendMessage(
-                package_id='1',
-                sticker_id='2'
-            )
-        line_bot_api.reply_message(event.reply_token, message)
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "FAIL"))
 
 
 
