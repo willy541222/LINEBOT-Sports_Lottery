@@ -163,7 +163,7 @@ def test(event):
                     "type": "image",
                     "url": "https://upload.cc/i1/2020/11/14/wpWAid.jpeg",
                     "size": "full",
-                    "aspect_Ratio": "20:13",
+                    "aspect_Ratio": "20:11",
                     "aspect_Mode": "cover",
                     "action": {
                     "type": "uri",
