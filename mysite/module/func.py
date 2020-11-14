@@ -165,134 +165,173 @@ def game_processing(event):
 
 def test(event):
     try:
-        message = FlexSendMessage(
-            alt_text="足球場中賽況",
-            contents={
-                "type": "bubble",
-                "body": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": "日本甲級聯賽",
-                        "weight": "bold",
-                        "size": "sm",
-                        "color": "#999999",
-                    },
-                    {
-                        "type": "box",
-                        "layout": "baseline",
-                        "margin": "md",
-                        "contents": [
-                        {
-                            "type": "text",
-                            "text": "川崎前鋒 VS 鹿島鹿角",
-                            "size": "md",
-                            "margin": "none",
-                            "flex": 0,
-                            "weight": "bold"
-                        }
-                        ]
-                    },
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "margin": "lg",
-                        "spacing": "sm",
-                        "contents": [
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "spacing": "sm",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "第一局",
-                                "color": "#aaaaaa",
-                                "size": "xs",
-                                "flex": 1
-                            },
-                            {
-                                "type": "text",
-                                "text": "1 : 0",
-                                "wrap": True,
-                                "color": "#666666",
-                                "size": "sm",
-                                "flex": 5,
-                                "align": "center",
-                                "weight": "bold"
+        ua = UserAgent()
+        user_agent = ua.random
+        headers = {'user-agent': user_agent}
+        res = requests.get("https://www.sportslottery.com.tw/api/services/app/LiveGames/GetLiveOnAndRegister?isContainRegister=false", headers = headers)
+        #print(res.status_code) #顯示網頁回傳狀態
+        data = res.json()
+        Game_data = data['result']['liveOn']
+        
+        if len(Game_data) == 0:
+            text4 = "目前沒有任何賽事"
+            message = TextSendMessage(
+                text = text4
+            )
+            line_bot_api.reply_message(event.reply_token,message)
+        else:
+            text3 = "目前場中投注的賽事\n"
+            message =[]
+            for i in range(len(Game_data)):
+                Game_name = Game_data[i]['ln'][0] #比賽名稱
+                player_one_chinese = Game_data[i]['atn'][0] #中文名字
+                #player_one_english = Game_data[i]['atn'][1] #英文名字
+                player_two_chinese = Game_data[i]['htn'][0] #中文名字
+                #player_two_english = Game_data[i]['htn'][1] #英文名字
+                player_one_score = Game_data[i]['as'].get('10') #當局分數 ex:tennis 
+                player_two_score = Game_data[i]['hs'].get('10') #當局分數 ex:tennis
+                player_one_as_1 = Game_data[i]['as'].get('1') #Game one score
+                player_two_hs_1 = Game_data[i]['hs'].get('1') #Game one score
+                player_one_as_2 = Game_data[i]['as'].get('2') #Game one score
+                player_two_hs_2 = Game_data[i]['hs'].get('2') #Game one score
+                game_time= "目前進行時間 : " + Game_data[i]['ed'][21:23] + " 分鐘" #目前進行時間
+                game_one_score = str(player_one_as_1) + " : " + str(player_two_hs_1)
+                res1 = requests.get("https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID={}".format(Game_data[i]['mi']), headers = headers)
+                if res1.status_code == 200 :
+                    game_video = "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi']) + "\n"
+                if player_one_as_2 == -1:
+                    game_two_score = " "
+                else:
+                    game_two_score = str(player_one_as_2) + " : " + str(player_two_hs_2)
+                message1 = FlexSendMessage(
+                            alt_text="足球場中賽況",
+                            contents={
+                                "type": "bubble",
+                                "body": {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "contents": [
+                                    {
+                                        "type": "text",
+                                        "text": Game_name,
+                                        "weight": "bold",
+                                        "size": "sm",
+                                        "color": "#999999",
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "baseline",
+                                        "margin": "md",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": player_one_chinese + "VS" + player_two_chinese,
+                                            "size": "md",
+                                            "margin": "none",
+                                            "flex": 0,
+                                            "weight": "bold"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "vertical",
+                                        "margin": "lg",
+                                        "spacing": "sm",
+                                        "contents": [
+                                        {
+                                            "type": "box",
+                                            "layout": "baseline",
+                                            "spacing": "sm",
+                                            "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "第一局",
+                                                "color": "#aaaaaa",
+                                                "size": "xs",
+                                                "flex": 1
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": game_one_score,
+                                                "wrap": True,
+                                                "color": "#666666",
+                                                "size": "sm",
+                                                "flex": 5,
+                                                "align": "center",
+                                                "weight": "bold"
+                                            }
+                                            ]
+                                        },
+                                        {
+                                            "type": "box",
+                                            "layout": "baseline",
+                                            "spacing": "sm",
+                                            "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "第二局",
+                                                "color": "#aaaaaa",
+                                                "size": "xs",
+                                                "flex": 1
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": game_two_score,
+                                                "wrap": True,
+                                                "color": "#666666",
+                                                "size": "sm",
+                                                "flex": 5,
+                                                "align": "center",
+                                                "weight": "bold"
+                                            }
+                                            ]
+                                        },
+                                        {
+                                            "type": "box",
+                                            "layout": "baseline",
+                                            "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": game_time,
+                                                "margin": "none",
+                                                "size": "xs",
+                                                "weight": "bold"
+                                            }
+                                            ],
+                                            "spacing": "none",
+                                            "margin": "md"
+                                        }
+                                        ]
+                                    }
+                                    ]
+                                },
+                                "footer": {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "spacing": "sm",
+                                    "contents": [
+                                    {
+                                        "type": "spacer"
+                                    },
+                                    {
+                                        "type": "button",
+                                        "style": "primary",
+                                        "height": "sm",
+                                        "action": {
+                                        "type": "uri",
+                                        "label": "動畫直播",
+                                        "uri": game_video
+                                        },
+                                        "color": "#905c44"
+                                    }
+                                    ],
+                                    "flex": 0
+                                }
                             }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "spacing": "sm",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "第二局",
-                                "color": "#aaaaaa",
-                                "size": "xs",
-                                "flex": 1
-                            },
-                            {
-                                "type": "text",
-                                "text": "0 : 1",
-                                "wrap": True,
-                                "color": "#666666",
-                                "size": "sm",
-                                "flex": 5,
-                                "align": "center",
-                                "weight": "bold"
-                            }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "進行時間 : 81 分鐘",
-                                "margin": "none",
-                                "size": "xs",
-                                "weight": "bold"
-                            }
-                            ],
-                            "spacing": "none",
-                            "margin": "md"
-                        }
-                        ]
-                    }
-                    ]
-                },
-                "footer": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "spacing": "sm",
-                    "contents": [
-                    {
-                        "type": "spacer"
-                    },
-                    {
-                        "type": "button",
-                        "style": "primary",
-                        "height": "sm",
-                        "action": {
-                        "type": "uri",
-                        "label": "動畫直播",
-                        "uri": "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=22348843"
-                        },
-                        "color": "#905c44"
-                    }
-                    ],
-                    "flex": 0
-                }
-            }
-        )
-        line_bot_api.reply_message(event.reply_token,message)
+                        )
+                message = [text3, message1]
+                line_bot_api.reply_message(event.reply_token,message)
     except:
         message = TextSendMessage(
             text = "Fail"
