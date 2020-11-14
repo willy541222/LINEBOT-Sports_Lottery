@@ -180,16 +180,11 @@ def test(event):
             )
             line_bot_api.reply_message(event.reply_token,message)
         else:
-            text3 = "目前場中投注的賽事\n"
-            message =[]
+            text3 = "目前場中投注的賽事"
             for i in range(len(Game_data)):
                 Game_name = Game_data[i]['ln'][0] #比賽名稱
                 player_one_chinese = Game_data[i]['atn'][0] #中文名字
-                #player_one_english = Game_data[i]['atn'][1] #英文名字
                 player_two_chinese = Game_data[i]['htn'][0] #中文名字
-                #player_two_english = Game_data[i]['htn'][1] #英文名字
-                player_one_score = Game_data[i]['as'].get('10') #當局分數 ex:tennis 
-                player_two_score = Game_data[i]['hs'].get('10') #當局分數 ex:tennis
                 player_one_as_1 = Game_data[i]['as'].get('1') #Game one score
                 player_two_hs_1 = Game_data[i]['hs'].get('1') #Game one score
                 player_one_as_2 = Game_data[i]['as'].get('2') #Game one score
