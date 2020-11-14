@@ -212,9 +212,8 @@ def test(event):
                                 "type": "text",
                                 "text": "第一局",
                                 "color": "#aaaaaa",
-                                "size": "sm",
-                                "flex": 1,
-                                "margin": "none"
+                                "size": "xs",
+                                "flex": 1
                             },
                             {
                                 "type": "text",
