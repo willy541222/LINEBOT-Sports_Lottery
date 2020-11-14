@@ -159,16 +159,6 @@ def test(event):
             alt_text="足球場中賽況",
             contents={
                 "type": "bubble",
-                "hero": {
-                    "type": "image",
-                    "url": "https://upload.cc/i1/2020/11/14/wpWAid.jpeg",
-                    "size": "full",
-                    "aspect_Mode": "cover",
-                    "action": {
-                    "type": "uri",
-                    "uri": "http://linecorp.com/"
-                    }
-                },
                 "body": {
                     "type": "box",
                     "layout": "vertical",
