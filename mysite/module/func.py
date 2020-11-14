@@ -9,6 +9,7 @@ import math
 import decimal
 import variable_settings as varset
 import urllib.parse
+from msg_template import soccer_template
 channel_secret = os.getenv('LINE_CHANNEL_SECRET', 'b7ce414421df207a4f7c49f185e0c5b0')
 channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', 'A8rE0YCtMEEEr8898I+q25D4JXXD5eGMOc88ANFS7JdxKw5b0yxHN26SNeZRBlv44NWRLkbCjwtmAkeAEeWp8gKnBapOcaCrTyyfwsKEyGzZeFE179ccm8GCqyGeXiCj7K7DflhBwM2+m5icbqiojQdB04t89/1O/w1cDnyilFU=')
 line_bot_api = LineBotApi(channel_access_token)
@@ -180,7 +181,7 @@ def test(event):
             )
             line_bot_api.reply_message(event.reply_token,message)
         else:
-            message = []
+            message =[]
             for i in range(len(Game_data)):
                 Game_name = Game_data[i]['ln'][0] #比賽名稱
                 player_one_chinese = Game_data[i]['atn'][0] #中文名字
@@ -206,15 +207,16 @@ def test(event):
                     text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n" #當局分數
                 
                 if Game_data[i]['si'] == 441: #足球
-                    text3 += "目前進行時間 : " + Game_data[i]['ed'][21:23] + " 分鐘\n" #目前進行時間
+                    Game_animation_url = "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi'])
+                    Game_time = "目前進行時間 : " + Game_data[i]['ed'][21:23] + " 分鐘" #目前進行時間
+                    Team_name = player_one_chinese + " vs " + player_two_chinese
+                    Game_one_score = str(Game_data[i]['as'].get('1')) + " : " + str(Game_data[i]['hs'].get('1'))
+                    if Game_data[i]['as'].get('2') == -1:
+                        Game_two_score = " "
+                    else:
+                        Game_two_score = str(Game_data[i]['as'].get('2')) + " : " + str(Game_data[i]['hs'].get('2'))
+                    message0 = soccer_template.flex_soccer(Game_name, Team_name, Game_time, Game_one_score, Game_two_score, Game_animation_url)
 
-                res1 = requests.get("https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID={}".format(Game_data[i]['mi']), headers = headers)
-                if res1.status_code == 200 :
-                    text3 += "場中動畫連結\n"
-                    text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi']) + "\n"
-                message0 = TextSendMessage(
-                    text=text3
-                )
                 message.append(message0)
             line_bot_api.reply_message(event.reply_token,message)
     except:
@@ -229,7 +231,6 @@ def test(event):
             )
         ]
         line_bot_api.reply_message(event.reply_token, message1)
-
 
 
 '''
