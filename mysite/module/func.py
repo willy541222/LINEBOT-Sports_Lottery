@@ -215,7 +215,7 @@ def test(event):
                     else:
                         Game_three_score = str(Game_data[i]['as'].get('3')) + " : " + str(Game_data[i]['hs'].get('3'))
                     message = FlexSendMessage(
-                        alt_text= "Tennis"
+                        alt_text= "Tennis",
                         contents= {
                             "type": "bubble",
                             "body": {
@@ -289,7 +289,7 @@ def test(event):
                                         {
                                             "type": "text",
                                             "text": Game_two_score,
-                                            "wrap": true,
+                                            "wrap": True,
                                             "color": "#666666",
                                             "size": "xs",
                                             "flex": 5,
