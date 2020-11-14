@@ -156,7 +156,6 @@ def game_processing(event):
 def test(event):
     try:
         message = FlexSendMessage(
-            alt_text="足球",
             contents={
                 "type": "bubble", 
                 "body": {
