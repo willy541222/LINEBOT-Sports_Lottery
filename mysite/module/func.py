@@ -1,7 +1,7 @@
 from django.conf import settings
 
 from linebot import LineBotApi, WebhookParser
-from linebot.models import TextSendMessage, QuickReply, QuickReplyButton, MessageAction, TemplateSendMessage, ConfirmTemplate, MessageTemplateAction, PostbackTemplateAction, FlexSendMessage
+from linebot.models import TextSendMessage, QuickReply, QuickReplyButton, MessageAction,StickerSendMessage, TemplateSendMessage, ConfirmTemplate, MessageTemplateAction, PostbackTemplateAction, FlexSendMessage
 import os, json, requests
 import random
 from fake_useragent import UserAgent
@@ -151,7 +151,17 @@ def game_processing(event):
             )
             line_bot_api.reply_message(event.reply_token,message)
     except:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "工程師正在修復中"))
+        message1 = [
+            StickerSendMessage(
+                package_id='1',
+                sticker_id='105'
+            ),
+
+            TextSendMessage(
+                text = "工程師正在修復中"
+            )
+        ]
+        line_bot_api.reply_message(event.reply_token, message1)
 
 def test(event):
     try:
