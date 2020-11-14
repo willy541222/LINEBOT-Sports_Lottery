@@ -266,6 +266,7 @@ def test(event):
                     {
                         "type": "text",
                         "text": Game_one_score,
+                        "wrap": True,
                         "color": "#666666",
                         "size": "sm",
                         "flex": 5,
