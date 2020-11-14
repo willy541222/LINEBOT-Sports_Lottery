@@ -201,10 +201,172 @@ def test(event):
                         player_two_hs = Game_data[i]['hs'].get(str(b)) #分數
                         text3 += "第"+ str(b) +"局" + str(player_one_as) + " : " + str(player_two_hs) + "\n"
                 
-                #if player_one_score != -1:
                 if Game_data[i]['si'] == 445: #網球
-                    text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n" #當局分數
-                
+                    au_score = "當盤分數" + str(player_one_score) + " : " + str(player_two_score) #當局分數
+                    Team_name = player_one_chinese + " vs " + player_two_chinese
+                    Game_one_score = str(Game_data[i]['as'].get('1')) + " : " + str(Game_data[i]['hs'].get('1'))
+                    Game_animation_url = "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi'])
+                    if Game_data[i]['as'].get('2') == -1:
+                        Game_two_score = " "
+                    else:
+                        Game_two_score = str(Game_data[i]['as'].get('2')) + " : " + str(Game_data[i]['hs'].get('2'))                                    
+                    if Game_data[i]['as'].get('3') == -1:
+                        Game_three_score = " "
+                    else:
+                        Game_three_score = str(Game_data[i]['as'].get('3')) + " : " + str(Game_data[i]['hs'].get('3'))
+                    message = FlexSendMessage(
+                        alt_text= "Tennis"
+                        contents= {
+                            "type": "bubble",
+                            "body": {
+                                "type": "box",
+                                "layout": "vertical",
+                                "contents": [
+                                {
+                                    "type": "text",
+                                    "text": Game_name,
+                                    "weight": "bold",
+                                    "size": "sm",
+                                    "color": "#999999",
+                                    "align": "start"
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "baseline",
+                                    "margin": "md",
+                                    "contents": [
+                                    {
+                                        "type": "text",
+                                        "size": "md",
+                                        "margin": "none",
+                                        "flex": 0,
+                                        "weight": "bold",
+                                        "text": Team_name
+                                    }
+                                    ]
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "margin": "lg",
+                                    "spacing": "sm",
+                                    "contents": [
+                                    {
+                                        "type": "box",
+                                        "layout": "baseline",
+                                        "spacing": "sm",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第一局",
+                                            "color": "#aaaaaa",
+                                            "size": "xs",
+                                            "flex": 1
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": Game_one_score,
+                                            "color": "#666666",
+                                            "size": "xs",
+                                            "flex": 5,
+                                            "align": "center",
+                                            "weight": "bold"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "baseline",
+                                        "spacing": "sm",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第二局",
+                                            "color": "#aaaaaa",
+                                            "size": "xs",
+                                            "flex": 1
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": Game_two_score,
+                                            "wrap": true,
+                                            "color": "#666666",
+                                            "size": "xs",
+                                            "flex": 5,
+                                            "align": "center",
+                                            "weight": "bold"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "baseline",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第三局",
+                                            "flex": 1,
+                                            "size": "xs",
+                                            "color": "#aaaaaa"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": Game_three_score,
+                                            "flex": 5,
+                                            "size": "xs",
+                                            "color": "#666666",
+                                            "align": "center",
+                                            "weight": "bold",
+                                            "wrap": True
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "baseline",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "當局分數",
+                                            "size": "xs"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": au_score,
+                                            "size": "xs",
+                                            "weight": "bold"
+                                        }
+                                        ]
+                                    }
+                                    ]
+                                }
+                                ]
+                            },
+                            "footer": {
+                                "type": "box",
+                                "layout": "vertical",
+                                "spacing": "sm",
+                                "contents": [
+                                {
+                                    "type": "spacer"
+                                },
+                                {
+                                    "type": "button",
+                                    "style": "primary",
+                                    "height": "sm",
+                                    "action": {
+                                    "type": "uri",
+                                    "label": "動畫直播",
+                                    "uri": Game_animation_url
+                                    },
+                                    "color": "#905c44"
+                                }
+                                ],
+                                "flex": 0
+                            }
+                        }
+                    )
+
                 if Game_data[i]['si'] == 441: #足球
                     Game_animation_url = "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi'])
                     Game_time = "目前進行時間 : " + Game_data[i]['ed'][21:23] + " 分鐘" #目前進行時間
