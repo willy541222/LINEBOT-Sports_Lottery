@@ -156,135 +156,21 @@ def game_processing(event):
 def test(event):
     message = FlexSendMessage(
         {
-        "type": "bubble",
-        "hero": {
-            "type": "image",
-            "url": "https://upload.cc/i1/2020/11/14/wpWAid.jpeg",
-            "size": "full",
-            "aspect_Ratio": "20:13",
-            "aspect_Mode": "cover",
-        },
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-            {
-                "type": "text",
-                "text": "日本甲級聯賽",
-                "weight": "bold",
-                "size": "sm",
-                "color": "#999999",
-                "margin": "none"
-            },
-            {
-                "type": "box",
-                "layout": "baseline",
-                "margin": "md",
-                "contents": [
+            "type": "bubble", 
+            "body": {
+                "type": "box", 
+                "layout": "horizontal", 
+                "contents": [ 
                 {
-                    "type": "text",
-                    "text": "川崎前鋒 VS 鹿島鹿角",
-                    "size": "md",
-                    "margin": "none",
-                    "flex": 0,
-                    "weight": "bold"
-                }
-                ]
-            },
-            {
-                "type": "box",
-                "layout": "vertical",
-                "margin": "lg",
-                "spacing": "sm",
-                "contents": [
-                {
-                    "type": "box",
-                    "layout": "baseline",
-                    "spacing": "sm",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": "第一局",
-                        "color": "#aaaaaa",
-                        "size": "sm",
-                        "flex": 1,
-                        "margin": "none"
-                    },
-                    {
-                        "type": "text",
-                        "text": "1 : 0",
-                        "color": "#666666",
-                        "size": "sm",
-                        "flex": 5,
-                        "align": "center",
-                        "weight": "bold"
-                    }
-                    ]
+                    "type": "text", 
+                    "text": "Hello,"
                 },
                 {
-                    "type": "box",
-                    "layout": "baseline",
-                    "spacing": "sm",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": "第二局",
-                        "color": "#aaaaaa",
-                        "size": "xs",
-                        "flex": 1
-                    },
-                    {
-                        "type": "text",
-                        "text": "0 : 1",
-                        "color": "#666666",
-                        "size": "sm",
-                        "flex": 5,
-                        "align": "center",
-                        "weight": "bold"
-                    }
-                    ]
-                },
-                {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": "進行時間 : 81 分鐘",
-                        "margin": "none",
-                        "size": "xs",
-                        "weight": "bold"
-                    }
-                    ],
-                    "spacing": "none",
-                    "margin": "md"
+                    "type": "text", 
+                    "text": "World!"
                 }
                 ]
             }
-            ]
-        },
-        "footer": {
-            "type": "box",
-            "layout": "vertical",
-            "spacing": "sm",
-            "contents": [
-            {
-                "type": "spacer"
-            },
-            {
-                "type": "button",
-                "style": "primary",
-                "height": "sm",
-                "action": {
-                "type": "uri",
-                "label": "動畫直播",
-                "uri": "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=22348843"
-                },
-                "color": "#905c44"
-                }
-            ],
-                "flex": 0
-            }   
         }
     )
     line_bot_api.reply_message(event.reply_token,message)
