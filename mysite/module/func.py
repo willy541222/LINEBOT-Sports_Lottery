@@ -9,7 +9,6 @@ import math
 import decimal
 import variable_settings as varset
 import urllib.parse
-from msg_template import soccer_template
 channel_secret = os.getenv('LINE_CHANNEL_SECRET', 'b7ce414421df207a4f7c49f185e0c5b0')
 channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', 'A8rE0YCtMEEEr8898I+q25D4JXXD5eGMOc88ANFS7JdxKw5b0yxHN26SNeZRBlv44NWRLkbCjwtmAkeAEeWp8gKnBapOcaCrTyyfwsKEyGzZeFE179ccm8GCqyGeXiCj7K7DflhBwM2+m5icbqiojQdB04t89/1O/w1cDnyilFU=')
 line_bot_api = LineBotApi(channel_access_token)
@@ -215,8 +214,133 @@ def test(event):
                         Game_two_score = " "
                     else:
                         Game_two_score = str(Game_data[i]['as'].get('2')) + " : " + str(Game_data[i]['hs'].get('2'))
-                    message0 = soccer_template.flex_soccer(Game_name, Team_name, Game_time, Game_one_score, Game_two_score, Game_animation_url)
-
+                    message0 = FlexSendMessage(
+                        alt_text= "Soccer",
+                    contents = {
+        "type": "bubble",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "text",
+                "text": Game_name,
+                "weight": "bold",
+                "size": "sm",
+                "color": "#999999",
+                "align": "start"
+            },
+            {
+                "type": "box",
+                "layout": "baseline",
+                "margin": "md",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": Team_name,
+                    "size": "md",
+                    "margin": "none",
+                    "flex": 0,
+                    "weight": "bold"
+                }
+                ]
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "margin": "lg",
+                "spacing": "sm",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "第一局",
+                        "color": "#aaaaaa",
+                        "size": "sm",
+                        "flex": 1
+                    },
+                    {
+                        "type": "text",
+                        "text": Game_one_score,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 5,
+                        "align": "center",
+                        "weight": "bold"
+                    }
+                    ]
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "第二局",
+                        "color": "#aaaaaa",
+                        "size": "xs",
+                        "flex": 1
+                    },
+                    {
+                        "type": "text",
+                        "text": Game_two_score,
+                        "wrap": True,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 5,
+                        "align": "center",
+                        "weight": "bold"
+                    }
+                    ]
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": Game_time,
+                        "margin": "none",
+                        "size": "xs",
+                        "weight": "bold"
+                    }
+                    ],
+                    "spacing": "none",
+                    "margin": "md"
+                }
+                ]
+            }
+            ]
+        },
+        "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+            {
+                "type": "spacer"
+            },
+            {
+                "type": "button",
+                "style": "primary",
+                "height": "sm",
+                "action": {
+                "type": "uri",
+                "label": "動畫直播",
+                "uri": Game_animation_url
+                },
+                "color": "#905c44"
+            }
+            ],
+            "flex": 0
+            }
+        }
+                    )
                 message.append(message0)
             line_bot_api.reply_message(event.reply_token,message)
     except:
