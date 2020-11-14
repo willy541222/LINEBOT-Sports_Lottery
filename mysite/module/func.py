@@ -212,7 +212,10 @@ def test(event):
                 if res1.status_code == 200 :
                     text3 += "場中動畫連結\n"
                     text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi']) + "\n"
-                message.append(text3)
+                message0 = TextSendMessage(
+                    text=text3
+                )
+                message.append(message0)
             line_bot_api.reply_message(event.reply_token,message)
     except:
         message1 = [
