@@ -1,7 +1,7 @@
 from django.conf import settings
 
 from linebot import LineBotApi, WebhookParser
-from linebot.models import TextSendMessage, QuickReply, QuickReplyButton, MessageAction, TemplateSendMessage, ConfirmTemplate, MessageTemplateAction, PostbackTemplateAction, FlexSendMessage
+from linebot.models import TextSendMessage, QuickReply, QuickReplyButton, MessageAction, TemplateSendMessage, ConfirmTemplate, MessageTemplateAction, PostbackTemplateAction, FlexSendMessage,FlexContainer,FlexComponent
 import os, json, requests
 import random
 from fake_useragent import UserAgent
