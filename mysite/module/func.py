@@ -165,19 +165,68 @@ def game_processing(event):
 
 def test(event):
     try:
-        message = []
-        message0 = StickerSendMessage(
+        ua = UserAgent()
+        user_agent = ua.random
+        headers = {'user-agent': user_agent}
+        res = requests.get("https://www.sportslottery.com.tw/api/services/app/LiveGames/GetLiveOnAndRegister?isContainRegister=false", headers = headers)
+        #print(res.status_code) #顯示網頁回傳狀態
+        data = res.json()
+        Game_data = data['result']['liveOn']
+
+        if len(Game_data) == 0:
+            text4 = "目前沒有任何賽事"
+            message = TextSendMessage(
+                text = text4
+            )
+            line_bot_api.reply_message(event.reply_token,message)
+        else:
+            message = []
+            for i in range(len(Game_data)):
+                Game_name = Game_data[i]['ln'][0] #比賽名稱
+                player_one_chinese = Game_data[i]['atn'][0] #中文名字
+                #player_one_english = Game_data[i]['atn'][1] #英文名字
+                player_two_chinese = Game_data[i]['htn'][0] #中文名字
+                #player_two_english = Game_data[i]['htn'][1] #英文名字
+                player_one_score = Game_data[i]['as'].get('10') #當局分數 ex:tennis 
+                player_two_score = Game_data[i]['hs'].get('10') #當局分數 ex:tennis
+
+                text3 = Game_name  + "\n"
+                text3 += player_one_chinese + " : " + player_two_chinese + "\n"
+                for b in range(len(Game_data[i]['as'])):
+                    b = b + 1
+                    player_one_as = Game_data[i]['as'].get(str(b)) #分數
+                    if player_one_as == -1 :
+                        break
+                    else:
+                        player_two_hs = Game_data[i]['hs'].get(str(b)) #分數
+                        text3 += "第"+ str(b) +"局" + str(player_one_as) + " : " + str(player_two_hs) + "\n"
+                
+                #if player_one_score != -1:
+                if Game_data[i]['si'] == 445: #網球
+                    text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n" #當局分數
+                
+                if Game_data[i]['si'] == 441: #足球
+                    text3 += "目前進行時間 : " + Game_data[i]['ed'][21:23] + " 分鐘\n" #目前進行時間
+
+                res1 = requests.get("https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID={}".format(Game_data[i]['mi']), headers = headers)
+                if res1.status_code == 200 :
+                    text3 += "場中動畫連結\n"
+                    text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi']) + "\n"
+                message.append(text3)
+            line_bot_api.reply_message(event.reply_token,message)
+    except:
+        message1 = [
+            StickerSendMessage(
                 package_id='1',
                 sticker_id='105'
+            ),
+
+            TextSendMessage(
+                text = "工程師正在修復中"
             )
-        message1 = TextSendMessage(
-            text= "FaIL"
-        )
-        message.append(message0)
-        message.append(message1)
-        line_bot_api.reply_message(event.reply_token, message)
-    except:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "fail"))
+        ]
+        line_bot_api.reply_message(event.reply_token, message1)
+
 
 
 '''
