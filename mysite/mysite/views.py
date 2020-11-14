@@ -122,8 +122,6 @@ def callback(request):
             func.Togglemode(event, mode, userid)
         elif mtext == '@場中賽況':
             func.game_processing(event)
-        elif mtext == '測試':
-            func.test(event)
         else :
             func.send_calc(event, mode, mtext)
 
