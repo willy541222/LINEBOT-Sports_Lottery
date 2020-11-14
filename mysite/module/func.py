@@ -1,7 +1,7 @@
 from django.conf import settings
 
 from linebot import LineBotApi, WebhookParser
-from linebot.models import TextSendMessage, QuickReply, QuickReplyButton, MessageAction, TemplateSendMessage, ConfirmTemplate, MessageTemplateAction, PostbackTemplateAction, FlexSendMessage,FlexContainer,FlexComponent
+from linebot.models import TextSendMessage, QuickReply, QuickReplyButton, MessageAction, TemplateSendMessage, ConfirmTemplate, MessageTemplateAction, PostbackTemplateAction, FlexSendMessage
 import os, json, requests
 import random
 from fake_useragent import UserAgent
@@ -177,23 +177,8 @@ def test(event):
         line_bot_api.reply_message(event.reply_token,message)
     except:
         message = FlexSendMessage(
-            {
-                "type": "bubble", 
-                "body": {
-                    "type": "box", 
-                    "layout": "horizontal", 
-                    "contents": [ 
-                    {
-                        "type": "text", 
-                        "text": "fail,"
-                    },
-                    {
-                        "type": "text", 
-                        "text": "fail!"
-                    }
-                    ]
-                }
-            }
+            alt_text="1310",
+            contents="212121"
         )
         line_bot_api.reply_message(event.reply_token,message)
 
