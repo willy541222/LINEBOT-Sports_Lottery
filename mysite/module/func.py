@@ -639,7 +639,6 @@ def test(event):
                                             "size": "sm",
                                             "align":"center",
                                             "weight":"bold",
-                                            "wrap":True
                                         }
                                         ]
                                     }
