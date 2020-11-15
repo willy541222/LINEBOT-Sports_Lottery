@@ -594,7 +594,7 @@ def test(event):
                                             "text": Game_two_score,
                                             "wrap": True,
                                             "color": "#666666",
-                                            "size": "xs",
+                                            "size": "sm",
                                             "flex": 5,
                                             "align": "center",
                                             "weight": "bold"
@@ -616,7 +616,7 @@ def test(event):
                                             "type": "text",
                                             "text": Game_three_score,
                                             "flex": 5,
-                                            "size": "xs",
+                                            "size": "sm",
                                             "color": "#666666",
                                             "align": "center",
                                             "weight": "bold",
