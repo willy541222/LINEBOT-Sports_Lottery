@@ -570,7 +570,7 @@ def test(event):
                                             "type": "text",
                                             "text": Game_one_score,
                                             "color": "#666666",
-                                            "size": "xs",
+                                            "size": "sm",
                                             "flex": 5,
                                             "align": "center",
                                             "weight": "bold"
