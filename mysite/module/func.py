@@ -184,9 +184,9 @@ def test(event):
             for i in range(len(Game_data)):
                 Game_name = Game_data[i]['ln'][0] #比賽名稱
                 player_one_chinese = Game_data[i]['atn'][0] #中文名字
-                #player_one_english = Game_data[i]['atn'][1] #英文名字
+                player_one_english = Game_data[i]['atn'][1] #英文名字
                 player_two_chinese = Game_data[i]['htn'][0] #中文名字
-                #player_two_english = Game_data[i]['htn'][1] #英文名字
+                player_two_english = Game_data[i]['htn'][1] #英文名字
                 player_one_score = Game_data[i]['as'].get('10') #當局分數 ex:tennis 
                 player_two_score = Game_data[i]['hs'].get('10') #當局分數 ex:tennis
 
@@ -200,6 +200,309 @@ def test(event):
                     else:
                         player_two_hs = Game_data[i]['hs'].get(str(b)) #分數
                         text3 += "第"+ str(b) +"局" + str(player_one_as) + " : " + str(player_two_hs) + "\n"
+
+                if Game_data[i]['si'] == 443: #棒球
+                    Team_name = player_one_chinese + " vs " + player_two_chinese
+                    Team_name_en = player_one_english + " vs " + player_two_english
+                    Game_one_score = str(Game_data[i]['as'].get('1')) + " : " + str(Game_data[i]['hs'].get('1'))
+                    total_score = 0
+                    Game_score = []
+                    for a in range(len(Game_data[i]['as'])):
+                        if Game_data[i]['as'].get(str(a)) == -1:
+                            Game_score[a+1] = " "
+                            Game_score[a+1] = str(Game_score[a+1])
+                        else:
+                            Game_score[a+1] = str(Game_data[i]['as'].get(str(a))) + " : " + str(Game_data[i]['hs'].get(str(a)))
+                            Game_score[a+1] = str(Game_score[a+1])
+                            total_score = total_score + Game_data[i]['as'].get(str(a)) + Game_data[i]['hs'].get(str(a))
+                            total_score = str(total_score)
+                    message0 = FlexSendMessage(
+                        alt_text = "Baseball",
+                        contents = {
+                            "type": "bubble",
+                            "body": {
+                                "type": "box",
+                                "layout": "vertical",
+                                "contents": [
+                                {
+                                    "type": "text",
+                                    "text": Game_name,
+                                    "weight": "bold",
+                                    "color": "#1DB446",
+                                    "size": "sm"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": Team_name,
+                                    "weight": "bold",
+                                    "size": "xxl",
+                                    "margin": "none",
+                                    "align": "start"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": Team_name_en,
+                                    "size": "xs",
+                                    "color": "#aaaaaa",
+                                    "wrap": True
+                                },
+                                {
+                                    "type": "separator",
+                                    "margin": "xxl"
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "margin": "xxl",
+                                    "spacing": "sm",
+                                    "contents": [
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第一局",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": Game_score[1],
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "center",
+                                            "weight": "bold"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第二局",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "center",
+                                            "text": Game_score[2],
+                                            "weight": "bold"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第三局",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": Game_score[3],
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "center",
+                                            "weight": "bold"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第四局",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text":Game_score[4],
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "center",
+                                            "weight": "bold"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第五局",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": Game_score[5],
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "center",
+                                            "weight": "bold"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第六局",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": Game_score[6],
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "center",
+                                            "weight": "bold"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第七局",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": Game_score[7],
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "center",
+                                            "weight": "bold"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第八局",
+                                            "size": "sm",
+                                            "flex": 0,
+                                            "color": "#555555"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": Game_score[8],
+                                            "weight": "bold",
+                                            "align": "center",
+                                            "color": "#111111",
+                                            "size": "sm"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "第九局",
+                                            "flex": 0,
+                                            "size": "sm",
+                                            "color": "#555555"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text":Game_score[9],
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "weight": "bold",
+                                            "align": "center"
+                                        }
+                                        ]
+                                    },
+                                {
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "contents": [
+                                        {
+                                        "type": "text",
+                                        "text": "延長",
+                                        "flex": 0,
+                                        "size": "sm",
+                                        "color": "#555555"
+                                        },
+                                        {
+                                        "type": "text",
+                                        "text": Game_score[10],
+                                        "size": "sm",
+                                        "color": "#111111",
+                                        "weight": "bold",
+                                        "align": "center"
+                                        }
+                                    ]
+                                    }
+                                    ]
+                                },
+                                {
+                                    "type": "separator",
+                                    "margin": "xxl"
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "margin": "md",
+                                    "contents": [
+                                    {
+                                        "type": "text",
+                                        "text": "總分",
+                                        "size": "lg",
+                                        "color": "#aaaaaa",
+                                        "flex": 0
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": total_score,
+                                        "color": "#0066CC",
+                                        "size": "lg",
+                                        "align": "center",
+                                        "weight": "bold"
+                                    }
+                                    ]
+                                }
+                                ]
+                            },
+                            "styles": {
+                                "footer": {
+                                "separator": True
+                                }
+                            }
+                        }
+                    )
                 
                 if Game_data[i]['si'] == 445: #網球
                     au_score = "當盤分數" + str(player_one_score) + " : " + str(player_two_score) #當局分數
@@ -214,7 +517,7 @@ def test(event):
                         Game_three_score = " "
                     else:
                         Game_three_score = str(Game_data[i]['as'].get('3')) + " : " + str(Game_data[i]['hs'].get('3'))
-                    message = FlexSendMessage(
+                    message0 = FlexSendMessage(
                         alt_text= "Tennis",
                         contents= {
                             "type": "bubble",
