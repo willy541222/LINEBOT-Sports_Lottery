@@ -505,7 +505,7 @@ def test(event):
                     )
                 
                 if Game_data[i]['si'] == 445: #網球
-                    au_score = "當盤分數" + str(player_one_score) + " : " + str(player_two_score) #當局分數
+                    au_score = str(player_one_score) + " : " + str(player_two_score) #當局分數
                     Team_name = player_one_chinese + " vs " + player_two_chinese
                     Game_one_score = str(Game_data[i]['as'].get('1')) + " : " + str(Game_data[i]['hs'].get('1'))
                     Game_animation_url = "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi'])
