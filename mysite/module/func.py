@@ -637,8 +637,8 @@ def test(event):
                                             "type": "text",
                                             "text": au_score,
                                             "size": "sm",
-                                            "align":"center",
-                                            "weight":"bold",
+                                            "flex": 5,
+                                            "weight":"bold"
                                         }
                                         ]
                                     }
