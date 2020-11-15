@@ -529,7 +529,7 @@ def test(event):
                                     "type": "text",
                                     "text": Game_name,
                                     "weight": "bold",
-                                    "size": "sm",
+                                    "size": "xs",
                                     "color": "#999999",
                                     "align": "start"
                                 },
@@ -636,7 +636,7 @@ def test(event):
                                         {
                                             "type": "text",
                                             "text": au_score,
-                                            "size": "xs",
+                                            "size": "sm",
                                             "weight": "bold"
                                         }
                                         ]
