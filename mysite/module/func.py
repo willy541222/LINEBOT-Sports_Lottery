@@ -153,12 +153,12 @@ def game_processing(event):
     except:
         message1 = [
             StickerSendMessage(
-                package_id='1',
-                sticker_id='105'
+                package_id='2',
+                sticker_id='161'
             ),
 
             TextSendMessage(
-                text = "工程師正在修復中"
+                text = "工程師正在努力修復中"
             )
         ]
         line_bot_api.reply_message(event.reply_token, message1)
@@ -174,11 +174,17 @@ def test(event):
         Game_data = data['result']['liveOn']
 
         if len(Game_data) == 0:
-            text4 = "目前沒有任何賽事"
-            message = TextSendMessage(
-                text = text4
-            )
-            line_bot_api.reply_message(event.reply_token,message)
+            message1 = [
+                StickerSendMessage(
+                    package_id='2',
+                    sticker_id='148'
+                ),
+
+                TextSendMessage(
+                    text = "目前無場中投注的比賽"
+                )
+            ]
+            line_bot_api.reply_message(event.reply_token, message1)
         else:
             message =[]
             for i in range(len(Game_data)):
@@ -812,8 +818,8 @@ def test(event):
     except:
         message1 = [
             StickerSendMessage(
-                package_id='1',
-                sticker_id='105'
+                package_id='2',
+                sticker_id='161'
             ),
 
             TextSendMessage(
