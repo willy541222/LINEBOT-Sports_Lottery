@@ -54,9 +54,9 @@ def send_calc(event, mode, mtext):
 
             #mode_name = "模式為高賠率換算低賠率"
             total_principle = "$ " +  str(high_principle + low_principle)
-            high_principle = str(high_principle) + " 元"
+            high_principle ="$ " + str(high_principle)
             high_odds = str(high_odds)
-            low_principle = str(low_principle) + " 元"
+            low_principle ="$ " + str(low_principle)
             buy_low_odds = str(buy_low_odds)
             message = FlexSendMessage(
                 alt_text = "賠率換算",
