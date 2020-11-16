@@ -84,7 +84,7 @@ def send_calc(event, mode, mtext):
                         {
                             "type": "text",
                             "text": "下注高賠率時計算低賠率多少能對沖",
-                            "size": "xs",
+                            "size": "sm",
                             "color": "#aaaaaa",
                             "wrap": True
                         },
@@ -262,7 +262,7 @@ def send_calc(event, mode, mtext):
                         {
                             "type": "text",
                             "text": "下注低賠率時計算高賠率多少能對沖",
-                            "size": "xs",
+                            "size": "sm",
                             "color": "#aaaaaa",
                             "wrap": True
                         },
