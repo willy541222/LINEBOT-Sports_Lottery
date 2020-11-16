@@ -282,7 +282,7 @@ def send_calc(event, mode, mtext):
                                 "contents": [
                                 {
                                     "type": "text",
-                                    "text": "高賠率本金",
+                                    "text": "低賠率本金",
                                     "size": "sm",
                                     "color": "#555555",
                                     "flex": 0
@@ -302,7 +302,7 @@ def send_calc(event, mode, mtext):
                                 "contents": [
                                 {
                                     "type": "text",
-                                    "text": "高賠率",
+                                    "text": "低賠率",
                                     "size": "sm",
                                     "color": "#555555",
                                     "flex": 0
