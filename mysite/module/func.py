@@ -52,13 +52,164 @@ def send_calc(event, mode, mtext):
             low_odds = high_principle / low_principle + 1
             buy_low_odds =  decimal.Decimal(low_odds).quantize(decimal.Decimal('0.01'),rounding=decimal.ROUND_UP)
 
-            text1 = "模式為高賠率換算低賠率"
-            text1 += "\n高賠率本金 : " + str(high_principle) + "元"
-            text1 += "\n高賠率為 : " + str(high_odds)
-            text1 += "\n低賠率本金為 : " + str(low_principle) + "元"
-            text1 += "\n低賠率為 : " + str(buy_low_odds) 
-            message = TextSendMessage(
-                text = text1
+            #mode_name = "模式為高賠率換算低賠率"
+            high_principle = str(high_principle) + " 元"
+            high_odds = str(high_odds)
+            low_principle = str(low_principle) + " 元"
+            buy_low_odds = str(buy_low_odds)
+            message = FlexSendMessage(
+                alt_text = "賠率換算",
+                contents = {
+                    "type": "bubble",
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                        {
+                            "type": "text",
+                            "text": "賠率換算",
+                            "weight": "bold",
+                            "color": "#1DB446",
+                            "size": "sm"
+                        },
+                        {
+                            "type": "text",
+                            "text": "高賠率 -> 低賠率",
+                            "weight": "bold",
+                            "size": "xxl",
+                            "margin": "md",
+                            "align": "start"
+                        },
+                        {
+                            "type": "text",
+                            "text": "下注高賠率時計算低賠率多少能對沖",
+                            "size": "xs",
+                            "color": "#aaaaaa",
+                            "wrap": True
+                        },
+                        {
+                            "type": "separator",
+                            "margin": "xxl"
+                        },
+                        {
+                            "type": "box",
+                            "layout": "vertical",
+                            "margin": "xxl",
+                            "spacing": "sm",
+                            "contents": [
+                            {
+                                "type": "box",
+                                "layout": "horizontal",
+                                "contents": [
+                                {
+                                    "type": "text",
+                                    "text": "高賠率本金",
+                                    "size": "sm",
+                                    "color": "#555555",
+                                    "flex": 0
+                                },
+                                {
+                                    "type": "text",
+                                    "text": high_principle,
+                                    "size": "sm",
+                                    "color": "#111111",
+                                    "align": "end"
+                                }
+                                ]
+                            },
+                            {
+                                "type": "box",
+                                "layout": "horizontal",
+                                "contents": [
+                                {
+                                    "type": "text",
+                                    "text": "高賠率",
+                                    "size": "sm",
+                                    "color": "#555555",
+                                    "flex": 0
+                                },
+                                {
+                                    "type": "text",
+                                    "text": high_odds,
+                                    "size": "sm",
+                                    "color": "#111111",
+                                    "align": "end"
+                                }
+                                ]
+                            },
+                            {
+                                "type": "box",
+                                "layout": "horizontal",
+                                "contents": [
+                                {
+                                    "type": "text",
+                                    "text": "最多能下注的本金",
+                                    "size": "sm",
+                                    "color": "#555555"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": low_principle,
+                                    "size": "sm",
+                                    "color": "#FF0000",
+                                    "align": "end"
+                                }
+                                ]
+                            },
+                            {
+                                "type": "box",
+                                "layout": "horizontal",
+                                "contents": [
+                                {
+                                    "type": "text",
+                                    "text": "最低下注賠率",
+                                    "size": "sm",
+                                    "color": "#555555"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": buy_low_odds,
+                                    "size": "sm",
+                                    "color": "#FF0000",
+                                    "align": "end"
+                                }
+                                ]
+                            }
+                            ]
+                        },
+                        {
+                            "type": "separator",
+                            "margin": "xxl"
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "margin": "md",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "下注總金額",
+                                "size": "xs",
+                                "color": "#aaaaaa",
+                                "flex": 0
+                            },
+                            {
+                                "type": "text",
+                                "text": "100",
+                                "color": "#aaaaaa",
+                                "size": "xs",
+                                "align": "end"
+                            }
+                            ]
+                        }
+                        ]
+                    },
+                    "styles": {
+                        "footer": {
+                        "separator": True
+                        }
+                    }
+                }
             )
             line_bot_api.reply_message(event.reply_token,message)
         else:
