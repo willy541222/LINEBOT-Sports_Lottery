@@ -53,6 +53,7 @@ def send_calc(event, mode, mtext):
             buy_low_odds =  decimal.Decimal(low_odds).quantize(decimal.Decimal('0.01'),rounding=decimal.ROUND_UP)
 
             #mode_name = "模式為高賠率換算低賠率"
+            total_principle = "$ " +  str(high_principle + low_principle)
             high_principle = str(high_principle) + " 元"
             high_odds = str(high_odds)
             low_principle = str(low_principle) + " 元"
@@ -195,7 +196,7 @@ def send_calc(event, mode, mtext):
                             },
                             {
                                 "type": "text",
-                                "text": "100",
+                                "text": total_principle,
                                 "color": "#aaaaaa",
                                 "size": "xs",
                                 "align": "end"
