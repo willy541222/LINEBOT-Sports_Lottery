@@ -99,7 +99,7 @@ def send_calc(event, mode, mtext):
                                 "contents": [
                                 {
                                     "type": "text",
-                                    "text": "下注賠率本金",
+                                    "text": "下注本金",
                                     "size": "sm",
                                     "color": "#555555",
                                     "flex": 0
