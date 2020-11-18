@@ -68,7 +68,7 @@ def send_calc(event, mode, mtext):
                         "contents": [
                         {
                             "type": "text",
-                            "text": "高賠率 -> 低賠率",
+                            "text": "賠率計算機",
                             "weight": "bold",
                             "size": "xl",
                             "margin": "md",
