@@ -59,7 +59,7 @@ def send_calc(event, mode, mtext):
             low_principle ="$ " + str(low_principle)
             buy_low_odds = str(buy_low_odds)
             message = FlexSendMessage(
-                alt_text = "賠率換算",
+                alt_text = "賠率計算器",
                 contents = {
                     "type": "bubble",
                     "body": {
