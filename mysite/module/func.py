@@ -68,22 +68,16 @@ def send_calc(event, mode, mtext):
                         "contents": [
                         {
                             "type": "text",
-                            "text": "賠率換算",
-                            "weight": "bold",
-                            "color": "#1DB446",
-                            "size": "sm"
-                        },
-                        {
-                            "type": "text",
                             "text": "高賠率 -> 低賠率",
                             "weight": "bold",
-                            "size": "xxl",
+                            "size": "xl",
                             "margin": "md",
+                            "color": "#1DB446",
                             "align": "start"
                         },
                         {
                             "type": "text",
-                            "text": "下注高賠率時計算低賠率多少能對沖",
+                            "text": "下注賠率時計算最低賠率多少能對沖",
                             "size": "xs",
                             "margin": "md",
                             "color": "#aaaaaa",
@@ -105,7 +99,7 @@ def send_calc(event, mode, mtext):
                                 "contents": [
                                 {
                                     "type": "text",
-                                    "text": "高賠率本金",
+                                    "text": "下注賠率本金",
                                     "size": "sm",
                                     "color": "#555555",
                                     "flex": 0
@@ -125,7 +119,7 @@ def send_calc(event, mode, mtext):
                                 "contents": [
                                 {
                                     "type": "text",
-                                    "text": "高賠率",
+                                    "text": "下注賠率",
                                     "size": "sm",
                                     "color": "#555555",
                                     "flex": 0
