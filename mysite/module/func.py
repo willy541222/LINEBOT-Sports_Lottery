@@ -2,9 +2,11 @@ from django.conf import settings
 
 from linebot import LineBotApi, WebhookParser
 from linebot.models import TextSendMessage, QuickReply, QuickReplyButton, MessageAction,StickerSendMessage, TemplateSendMessage, ConfirmTemplate, MessageTemplateAction, PostbackTemplateAction, FlexSendMessage
-import os, json, requests
+import os, json, requests, datetime
 import random
+from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
+import pandas as pd
 import math
 import decimal
 import variable_settings as varset
@@ -473,17 +475,107 @@ def test(event):
         Game_data = data['result']['liveOn']
 
         if len(Game_data) == 0:
-            message1 = [
-                StickerSendMessage(
-                    package_id='2',
-                    sticker_id='148'
-                ),
-
-                TextSendMessage(
-                    text = "目前無場中投注的比賽"
+            ua = UserAgent()
+            user_agent = ua.random
+            headers = {'user-agent': user_agent}
+            url = "https://www.sportslottery.com.tw/zh-tw/news/live-schedule"
+            res = requests.get(url, headers = headers)
+            df = pd.read_html(res.text)[0]
+            now = datetime.datetime.now()
+            now_time = now.strftime("%Y-%m-%d")
+            message = [TextSendMessage(text="目前沒有任何賽事")]
+            for i in range(len(df.index)):
+                df1 = df.iloc[i][0].split('/')
+                df_year = str(int(df1[0]) + 1911)
+                df_time = df_year + '-' + df1[1] +'-'+ df1[2]
+                if df_time == now_time and df.iloc[i][-1] == '單場+場中' :
+                    #print(df.iloc[i][1::])
+                    game_name = df.iloc[i][3]
+                    team = df.iloc[i][4] + ' vs ' + df.iloc[i][5]
+                    game_time = df.iloc[i][2]
+                message1 = FlexSendMessage(
+                    alt_text="Schedule",
+                    contents={
+                        "type": "bubble",
+                        "size": "mega",
+                        "header": {
+                            "type": "box",
+                            "layout": "vertical",
+                            "contents": [
+                            {
+                                "type": "box",
+                                "layout": "vertical",
+                                "contents": [
+                                {
+                                    "type": "text",
+                                    "text": game_name,
+                                    "color": "#ffffff",
+                                    "size": "xl",
+                                    "flex": 0,
+                                    "weight": "bold"
+                                }
+                                ]
+                            }
+                            ],
+                            "paddingAll": "20px",
+                            "backgroundColor": "#006D77",
+                            "spacing": "md",
+                            "paddingTop": "22px"
+                        },
+                        "body": {
+                            "type": "box",
+                            "layout": "vertical",
+                            "contents": [
+                            {
+                                "type": "box",
+                                "layout": "horizontal",
+                                "contents": [
+                                {
+                                    "type": "text",
+                                    "text": "Time",
+                                    "color": "#C0C0C0",
+                                    "gravity": "center"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": "客隊 vs 主隊",
+                                    "color": "#C0C0C0",
+                                    "flex": 4,
+                                    "size": "sm",
+                                    "align": "center"
+                                }
+                                ],
+                                "spacing": "lg"
+                            },
+                            {
+                                "type": "box",
+                                "layout": "horizontal",
+                                "contents": [
+                                {
+                                    "type": "text",
+                                    "text": game_time,
+                                    "size": "sm",
+                                    "gravity": "center"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": team,
+                                    "align": "center",
+                                    "flex": 4,
+                                    "size": "sm",
+                                    "color": "#006D77"
+                                }
+                                ],
+                                "spacing": "lg",
+                                "cornerRadius": "none",
+                                "margin": "xl"
+                            }
+                            ]
+                        }
+                    }
                 )
-            ]
-            line_bot_api.reply_message(event.reply_token, message1)
+                message.append(message1)
+            line_bot_api.reply_message(event.reply_token, message)
         else:
             message =[]
             for i in range(len(Game_data)):

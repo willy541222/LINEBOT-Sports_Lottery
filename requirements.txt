@@ -1,10 +1,12 @@
 asgiref==3.2.10
 astroid==2.4.2
+beautifulsoup4==4.9.3
 certifi==2019.6.16
 chardet==3.0.4
 colorama==0.4.3
 dj-database-url==0.5.0
 dj-static==0.0.6
+datetime==4.3
 Django==2.2.3
 django-variable-settings==0.0.1
 future==0.17.1
@@ -17,6 +19,7 @@ mccabe==0.6.1
 psycopg2==2.8.6
 pylint==2.6.0
 pytz==2019.1
+pandas==1.1.4
 requests==2.22.0
 six==1.15.0
 sqlparse==0.3.0
