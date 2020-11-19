@@ -517,55 +517,55 @@ def test(event):
                                 "backgroundColor": "#006D77",
                                 "spacing": "md",
                                 "paddingTop": "22px"
-                            },
-                            "body": {
-                                "type": "box",
-                                "layout": "vertical",
-                                "contents": [
-                                {
-                                    "type": "box",
-                                    "layout": "horizontal",
-                                    "contents": [
-                                    {
-                                        "type": "text",
-                                        "text": "Time",
-                                        "color": "#C0C0C0",
-                                        "gravity": "center"
-                                    },
-                                    {
-                                        "type": "text",
-                                        "text": "客隊 vs 主隊",
-                                        "color": "#C0C0C0",
-                                        "flex": 4,
-                                        "size": "sm",
-                                        "align": "center"
-                                    }
-                                    ],
-                                    "spacing": "lg"
                                 },
-                                {
+                                "body": {
                                     "type": "box",
-                                    "layout": "horizontal",
+                                    "layout": "vertical",
                                     "contents": [
                                     {
-                                        "type": "text",
-                                        "text": game_time,
-                                        "size": "sm",
-                                        "gravity": "center"
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "Time",
+                                            "color": "#C0C0C0",
+                                            "gravity": "center"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "客隊 vs 主隊",
+                                            "color": "#C0C0C0",
+                                            "flex": 4,
+                                            "size": "sm",
+                                            "align": "center"
+                                        }
+                                        ],
+                                        "spacing": "lg"
                                     },
                                     {
-                                        "type": "text",
-                                        "text": team,
-                                        "align": "center",
-                                        "flex": 4,
-                                        "size": "sm",
-                                        "color": "#006D77"
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": game_time,
+                                            "size": "sm",
+                                            "gravity": "center"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": team,
+                                            "align": "center",
+                                            "flex": 4,
+                                            "size": "sm",
+                                            "color": "#006D77"
+                                        }
+                                        ],
+                                        "spacing": "lg",
+                                        "cornerRadius": "none",
+                                        "margin": "xl"
                                     }
-                                    ],
-                                    "spacing": "lg",
-                                    "cornerRadius": "none",
-                                    "margin": "xl"
-                                }
                                 ]
                             }
                         }
