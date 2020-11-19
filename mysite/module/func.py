@@ -570,7 +570,7 @@ def test(event):
                             }
                         }
                     )
-                message.append(message1)
+                    message.append(message1)
                 if message == None:
                     message = TextSendMessage(
                         text = "今天沒有任何比賽了"
