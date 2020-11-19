@@ -474,7 +474,6 @@ def test(event):
         #print(res.status_code) #顯示網頁回傳狀態
         data = res.json()
         Game_data = data['result']['liveOn']
-
         if len(Game_data) == 0:
             url = "https://www.sportslottery.com.tw/zh-tw/news/live-schedule"
             res1 = requests.get(url, headers = headers)
@@ -490,87 +489,87 @@ def test(event):
                     game_name = str(df.iloc[i][3])
                     team = str(df.iloc[i][4]) + ' vs ' + str(df.iloc[i][5])
                     game_time = str(df.iloc[i][2])
-                message1 = FlexSendMessage(
-                    alt_text="Schedule",
-                    contents={
-                        "type": "bubble",
-                        "size": "mega",
-                        "header": {
-                            "type": "box",
-                            "layout": "vertical",
-                            "contents": [
-                            {
+                    message1 = FlexSendMessage(
+                        alt_text="Schedule",
+                        contents={
+                            "type": "bubble",
+                            "size": "mega",
+                            "header": {
                                 "type": "box",
                                 "layout": "vertical",
                                 "contents": [
                                 {
-                                    "type": "text",
-                                    "text": game_name,
-                                    "color": "#ffffff",
-                                    "size": "xl",
-                                    "flex": 0,
-                                    "weight": "bold"
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "contents": [
+                                    {
+                                        "type": "text",
+                                        "text": game_name,
+                                        "color": "#ffffff",
+                                        "size": "xl",
+                                        "flex": 0,
+                                        "weight": "bold"
+                                    }
+                                    ]
+                                }
+                                ],
+                                "paddingAll": "20px",
+                                "backgroundColor": "#006D77",
+                                "spacing": "md",
+                                "paddingTop": "22px"
+                            },
+                            "body": {
+                                "type": "box",
+                                "layout": "vertical",
+                                "contents": [
+                                {
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "contents": [
+                                    {
+                                        "type": "text",
+                                        "text": "Time",
+                                        "color": "#C0C0C0",
+                                        "gravity": "center"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": "客隊 vs 主隊",
+                                        "color": "#C0C0C0",
+                                        "flex": 4,
+                                        "size": "sm",
+                                        "align": "center"
+                                    }
+                                    ],
+                                    "spacing": "lg"
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "contents": [
+                                    {
+                                        "type": "text",
+                                        "text": game_time,
+                                        "size": "sm",
+                                        "gravity": "center"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": team,
+                                        "align": "center",
+                                        "flex": 4,
+                                        "size": "sm",
+                                        "color": "#006D77"
+                                    }
+                                    ],
+                                    "spacing": "lg",
+                                    "cornerRadius": "none",
+                                    "margin": "xl"
                                 }
                                 ]
                             }
-                            ],
-                            "paddingAll": "20px",
-                            "backgroundColor": "#006D77",
-                            "spacing": "md",
-                            "paddingTop": "22px"
-                        },
-                        "body": {
-                            "type": "box",
-                            "layout": "vertical",
-                            "contents": [
-                            {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                {
-                                    "type": "text",
-                                    "text": "Time",
-                                    "color": "#C0C0C0",
-                                    "gravity": "center"
-                                },
-                                {
-                                    "type": "text",
-                                    "text": "客隊 vs 主隊",
-                                    "color": "#C0C0C0",
-                                    "flex": 4,
-                                    "size": "sm",
-                                    "align": "center"
-                                }
-                                ],
-                                "spacing": "lg"
-                            },
-                            {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                {
-                                    "type": "text",
-                                    "text": game_time,
-                                    "size": "sm",
-                                    "gravity": "center"
-                                },
-                                {
-                                    "type": "text",
-                                    "text": team,
-                                    "align": "center",
-                                    "flex": 4,
-                                    "size": "sm",
-                                    "color": "#006D77"
-                                }
-                                ],
-                                "spacing": "lg",
-                                "cornerRadius": "none",
-                                "margin": "xl"
-                            }
-                            ]
                         }
-                    }
-                )
+                    )
                 message.append(message1)
             line_bot_api.reply_message(event.reply_token, message)
         else:
