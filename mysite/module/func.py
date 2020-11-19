@@ -466,6 +466,7 @@ def game_processing(event):
 
 def test(event):
     try:
+        message = []
         ua = UserAgent()
         user_agent = ua.random
         headers = {'user-agent': user_agent}
@@ -480,7 +481,6 @@ def test(event):
             df = pd.read_html(res1.text)[0]
             now = datetime.datetime.now()
             now_time = now.strftime("%Y-%m-%d")
-            message = []
             for i in range(len(df.index)):
                 df1 = df.iloc[i][0].split('/')
                 df_year = str(int(df1[0]) + 1911)
