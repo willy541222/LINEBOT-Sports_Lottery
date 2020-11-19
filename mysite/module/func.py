@@ -483,7 +483,7 @@ def test(event):
             df = pd.read_html(res.text)[0]
             now = datetime.datetime.now()
             now_time = now.strftime("%Y-%m-%d")
-            message = [TextSendMessage(text="目前沒有任何賽事")]
+            message = []
             for i in range(len(df.index)):
                 df1 = df.iloc[i][0].split('/')
                 df_year = str(int(df1[0]) + 1911)
