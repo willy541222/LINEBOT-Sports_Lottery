@@ -459,7 +459,7 @@ def game_processing(event):
             ),
 
             TextSendMessage(
-                text = "工程師正在努力修復中"
+                text = "工程師正在修復中"
             )
         ]
         line_bot_api.reply_message(event.reply_token, message1)
@@ -571,6 +571,10 @@ def test(event):
                         }
                     )
                 message.append(message1)
+                if message == None:
+                    message = TextSendMessage(
+                        text = "今天沒有任何比賽了"
+                    )
             line_bot_api.reply_message(event.reply_token, message)
         else:
             message =[]
