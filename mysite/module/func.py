@@ -475,6 +475,7 @@ def test(event):
         data = res.json()
         Game_data = data['result']['liveOn']
         if len(Game_data) == 0:
+            """
             ub = UserAgent()
             user_agent = ub.random
             headers = {'user-agent': user_agent}
@@ -578,6 +579,10 @@ def test(event):
                 message = TextSendMessage(
                     text = "今天沒有任何比賽了"
                 )
+                """
+            message = TextSendMessage(
+                text = "目前沒有任何場中投注比賽"
+            )
             line_bot_api.reply_message(event.reply_token, message)
         else:
             message =[]
