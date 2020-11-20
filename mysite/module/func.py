@@ -475,6 +475,9 @@ def test(event):
         data = res.json()
         Game_data = data['result']['liveOn']
         if len(Game_data) == 0:
+            ub = UserAgent()
+            user_agent = ub.random
+            headers = {'user-agent': user_agent}
             url = "https://www.sportslottery.com.tw/zh-tw/news/live-schedule"
             res1 = requests.get(url, headers = headers)
             df = pd.read_html(res1.text)[0]
@@ -570,7 +573,7 @@ def test(event):
                             }
                         }
                     )
-                    message.append(message1)
+                message.append(message1)
             if message == None:
                 message = TextSendMessage(
                     text = "今天沒有任何比賽了"
