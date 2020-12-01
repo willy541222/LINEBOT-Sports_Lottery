@@ -15,6 +15,7 @@ idna==2.8
 isort==5.4.2
 lazy-object-proxy==1.4.3
 line-bot-sdk==1.12.1
+lxml==4.6.2
 mccabe==0.6.1
 psycopg2==2.8.6
 pylint==2.6.0
