@@ -518,7 +518,7 @@ def test(event):
                                     }
                                 ],
                                 "paddingAll": "20px",
-                                "background_Color": "#006D77",
+                                "backgroundColor": "#006D77",
                                 "spacing": "md",
                                 "paddingTop": "22px"
                             },
