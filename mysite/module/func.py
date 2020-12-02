@@ -466,7 +466,7 @@ def game_processing(event):
 
 def test(event):
     try:
-        #message = []
+        message = []
         ua = UserAgent()
         user_agent = ua.random
         headers = {'user-agent': user_agent}
@@ -480,15 +480,14 @@ def test(event):
             headers = {'user-agent': user_agent}
             url = "https://www.sportslottery.com.tw/zh-tw/news/live-schedule"
             res1 = requests.get(url, headers = headers)
-            msg = res1.status_code
-            """
+            #msg = res1.status_code
             df = pd.read_html(res1.text)[0]
             now = datetime.datetime.now()
             now_time = now.strftime("%Y-%m-%d")
             for i in range(len(df.index)):
                 df1 = df.iloc[i][0].split('/')
                 df_year = str(int(df1[0]) + 1911)
-                df_time = df_year + '-' + str(df1[1]) +'-'+ str(df1[2])
+                df_time = df_year + '-' + df1[1] +'-'+ df1[2]
                 if df_time == now_time and df.iloc[i][-1] == '單場+場中' :
                     #print(df.iloc[i][1::])
                     game_name = str(df.iloc[i][3])
@@ -575,16 +574,11 @@ def test(event):
                             }
                         }
                     )
-                message.append(message1)
-                
+                    message.append(message1)
             if message == None:
                 message = TextSendMessage(
                     text = "今天沒有任何比賽了"
                 )
-                """
-            message = TextSendMessage(
-                text=msg
-            )
             line_bot_api.reply_message(event.reply_token, message)
         else:
             message =[]
