@@ -487,7 +487,7 @@ def test(event):
                 df1 = df.iloc[i][0].split('/')
                 df_year = str(int(df1[0]) + 1911)
                 df_time = df_year + '-' + df1[1] +'-'+ df1[2]
-                if df_time == now_time and df.iloc[i][-1] == '單場+場中' :
+                if df_time == now_time and str(df.iloc[i][-1]) == '單場+場中' :
                     #print(df.iloc[i][1::])
                     game_name = str(df.iloc[i][3])
                     team = str(df.iloc[i][4]) + ' vs ' + str(df.iloc[i][5])
