@@ -521,11 +521,11 @@ def test(event):
                                 "backgroundColor": "#006D77",
                                 "spacing": "md",
                                 "paddingTop": "22px"
-                                },
-                                "body": {
-                                    "type": "box",
-                                    "layout": "vertical",
-                                    "contents": [
+                            },
+                            "body": {
+                                "type": "box",
+                                "layout": "vertical",
+                                "contents": [
                                     {
                                         "type": "box",
                                         "layout": "horizontal",
