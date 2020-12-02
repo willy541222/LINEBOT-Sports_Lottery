@@ -466,7 +466,6 @@ def game_processing(event):
 
 def test(event):
     try:
-        message = []
         ua = UserAgent()
         user_agent = ua.random
         headers = {'user-agent': user_agent}
@@ -475,6 +474,7 @@ def test(event):
         data = res.json()
         Game_data = data['result']['liveOn']
         if len(Game_data) == 0:
+            message = [TextSendMessage(text = "目前無任何比賽，以下是即將開始的比賽")]
             ub = UserAgent()
             user_agent = ub.random
             headers = {'user-agent': user_agent}
