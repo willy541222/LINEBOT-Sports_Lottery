@@ -490,7 +490,7 @@ def test(event):
                 df_time = df_year + '-' + df1[1] +'-'+ df1[2]
                 if df_time == now_time and df.iloc[i][-1] == '單場+場中' :
                     #print(df.iloc[i][1::])
-                    game_name = str(df.iloc[i][3])
+                    game_name = df.iloc[i][3]
                     team = str(df.iloc[i][4]) + ' vs ' + str(df.iloc[i][5])
                     game_time = str(df.iloc[i][2])
                     message1 = FlexSendMessage(
@@ -513,9 +513,9 @@ def test(event):
                                         "size": "xl",
                                         "flex": 0,
                                         "weight": "bold"
-                                    }
+                                        }
                                     ]
-                                }
+                                    }
                                 ],
                                 "paddingAll": "20px",
                                 "backgroundColor": "#006D77",
