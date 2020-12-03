@@ -466,6 +466,7 @@ def game_processing(event):
 
 def test(event):
     try:
+        message = []
         ua = UserAgent()
         user_agent = ua.random
         headers = {'user-agent': user_agent}
@@ -491,62 +492,35 @@ def test(event):
                 if df_time == now_time and df.iloc[i][-1] == '單場+場中' :
                     #print(df.iloc[i][1::])
                     game_name = df.iloc[i][3]
-                    team = str(df.iloc[i][4]) + ' vs ' + str(df.iloc[i][5])
+                    away_team = df.iloc[i][4]
+                    home_team = df.iloc[i][5]
+                    #team = str(df.iloc[i][4]) + ' vs ' + str(df.iloc[i][5])
                     game_time = str(df.iloc[i][2])
                     message1 = FlexSendMessage(
                         alt_text="Schedule",
                         contents={
                             "type": "bubble",
-                            "size": "mega",
-                            "header": {
-                                "type": "box",
-                                "layout": "vertical",
-                                "contents": [
-                                {
-                                    "type": "box",
-                                    "layout": "vertical",
-                                    "contents": [
-                                    {
-                                        "type": "text",
-                                        "text": game_name,
-                                        "color": "#ffffff",
-                                        "size": "xl",
-                                        "flex": 0,
-                                        "weight": "bold"
-                                        }
-                                    ]
-                                    }
-                                ],
-                                "paddingAll": "20px",
-                                "backgroundColor": "#006D77",
-                                "spacing": "md",
-                                "paddingTop": "22px"
-                            },
                             "body": {
                                 "type": "box",
                                 "layout": "vertical",
                                 "contents": [
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [
-                                        {
-                                            "type": "text",
-                                            "text": "Time",
-                                            "color": "#C0C0C0",
-                                            "gravity": "center"
-                                        },
-                                        {
-                                            "type": "text",
-                                            "text": "客隊 vs 主隊",
-                                            "color": "#C0C0C0",
-                                            "flex": 4,
-                                            "size": "sm",
-                                            "align": "center"
-                                        }
-                                        ],
-                                        "spacing": "lg"
-                                    },
+                                {
+                                    "type": "text",
+                                    "text": game_name,
+                                    "weight": "bold",
+                                    "size": "xxl",
+                                    "margin": "md"
+                                },
+                                {
+                                    "type": "separator",
+                                    "margin": "xxl"
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "margin": "xxl",
+                                    "spacing": "sm",
+                                    "contents": [
                                     {
                                         "type": "box",
                                         "layout": "horizontal",
@@ -555,22 +529,83 @@ def test(event):
                                             "type": "text",
                                             "text": game_time,
                                             "size": "sm",
-                                            "gravity": "center"
+                                            "color": "#555555",
+                                            "flex": 0
                                         },
                                         {
                                             "type": "text",
-                                            "text": team,
-                                            "align": "center",
-                                            "flex": 4,
+                                            "text": "$2.99",
                                             "size": "sm",
-                                            "color": "#006D77"
+                                            "align": "center"
                                         }
-                                        ],
-                                        "spacing": "lg",
-                                        "cornerRadius": "none",
-                                        "margin": "xl"
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "主隊",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": away_team,
+                                            "size": "sm",
+                                            "color": "#006D77",
+                                            "align": "center"
+                                        }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "客隊",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": home_team,
+                                            "size": "sm",
+                                            "color": "#006D77",
+                                            "align": "center"
+                                        }
+                                        ]
                                     }
+                                    ]
+                                },
+                                {
+                                    "type": "separator",
+                                    "margin": "xxl"
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "margin": "md",
+                                    "contents": [
+                                    {
+                                        "type": "text",
+                                        "text": "單場＋場中投注",
+                                        "size": "xs",
+                                        "color": "#aaaaaa",
+                                        "flex": 0
+                                        }
+                                    ]
+                                }
                                 ]
+                            },
+                            "styles": {
+                                "footer": {
+                                "separator": True
+                                }
                             }
                         }
                     )
