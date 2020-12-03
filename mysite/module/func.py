@@ -527,14 +527,14 @@ def test(event):
                                         "contents": [
                                         {
                                             "type": "text",
-                                            "text": game_time,
+                                            "text": "時間",
                                             "size": "sm",
                                             "color": "#555555",
                                             "flex": 0
                                         },
                                         {
                                             "type": "text",
-                                            "text": "$2.99",
+                                            "text": game_time,
                                             "size": "sm",
                                             "align": "center"
                                         }
