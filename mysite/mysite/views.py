@@ -58,7 +58,7 @@ def callback(request):
         elif mtext == '測試':
             func.test(event)
         else :
-            func.send_calc(event, mode, mtext)
+            func.send_calc(event, mtext)
 
 def readData(event):
     userid = event.source.user_id
