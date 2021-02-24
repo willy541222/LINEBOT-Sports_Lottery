@@ -2,7 +2,8 @@ from django.conf import settings
 
 from linebot import LineBotApi, WebhookParser
 from linebot.models import TextSendMessage, QuickReply, QuickReplyButton, MessageAction,StickerSendMessage, TemplateSendMessage, ConfirmTemplate, MessageTemplateAction, PostbackTemplateAction, FlexSendMessage
-import os, json, requests, datetime
+import os, json, requests
+from datetime import datetime, timedelta, timezone
 import random
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
@@ -32,6 +33,27 @@ def Togglemode(event, mode, userid):
         line_bot_api.reply_message(event.reply_token, message)
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text = 'Error !'))
+
+#使用說明
+def manual(event):
+    try:
+        text0 = "使用說明如下"
+        message = TextSendMessage(
+            text = text0
+        )
+        line_bot_api.reply_message(event.reply_token, message)
+    except:
+        message0 = [
+            StickerSendMessage(
+                package_id='2',
+                sticker_id='161'
+            ),
+
+            TextSendMessage(
+                text = "工程師正在修復中"
+            )
+        ]
+        line_bot_api.reply_message(event.reply_token, message0)
 
 #計算本金賠率
 def send_calc(event, mode, mtext):
@@ -402,12 +424,11 @@ def game_processing(event):
         ua = UserAgent()
         user_agent = ua.random
         headers = {'user-agent': user_agent}
-        res = requests.get("https://www.sportslottery.com.tw/api/services/app/LiveGames/GetLiveOnAndRegister?isContainRegister=false", headers = headers)
+        res = requests.get("https://blob.sportslottery.com.tw/apidata/Live/On.json", headers = headers)
         #print(res.status_code) #顯示網頁回傳狀態
         data = res.json()
-        Game_data = data['result']['liveOn']
 
-        if len(Game_data) == 0:
+        if len(data) == 0:
             text4 = "目前沒有任何賽事"
             message = TextSendMessage(
                 text = text4
@@ -415,37 +436,37 @@ def game_processing(event):
             line_bot_api.reply_message(event.reply_token,message)
         else:
             message =[]
-            for i in range(len(Game_data)):
-                Game_name = Game_data[i]['ln'][0] #比賽名稱
-                player_one_chinese = Game_data[i]['atn'][0] #中文名字
-                #player_one_english = Game_data[i]['atn'][1] #英文名字
-                player_two_chinese = Game_data[i]['htn'][0] #中文名字
-                #player_two_english = Game_data[i]['htn'][1] #英文名字
-                player_one_score = Game_data[i]['as'].get('10') #當局分數 ex:tennis 
-                player_two_score = Game_data[i]['hs'].get('10') #當局分數 ex:tennis
+            for i in range(len(data)):
+                Game_name = data[i]['ln'][0] #比賽名稱
+                player_one_chinese = data[i]['atn'][0] #中文名字
+                #player_one_english = data[i]['atn'][1] #英文名字
+                player_two_chinese = data[i]['htn'][0] #中文名字
+                #player_two_english = data[i]['htn'][1] #英文名字
+                player_one_score = data[i]['as'].get('10') #當局分數 ex:tennis 
+                player_two_score = data[i]['hs'].get('10') #當局分數 ex:tennis
 
                 text3 = Game_name  + "\n"
                 text3 += player_one_chinese + " : " + player_two_chinese + "\n"
-                for b in range(len(Game_data[i]['as'])):
+                for b in range(len(data[i]['as'])):
                     b = b + 1
-                    player_one_as = Game_data[i]['as'].get(str(b)) #分數
+                    player_one_as = data[i]['as'].get(str(b)) #分數
                     if player_one_as == -1 :
                         break
                     else:
-                        player_two_hs = Game_data[i]['hs'].get(str(b)) #分數
+                        player_two_hs = data[i]['hs'].get(str(b)) #分數
                         text3 += "第"+ str(b) +"局" + str(player_one_as) + " : " + str(player_two_hs) + "\n"
                 
                 #if player_one_score != -1:
-                if Game_data[i]['si'] == 445: #網球
+                if data[i]['si'] == 445: #網球
                     text3 += "當盤分數" + str(player_one_score) + " : " + str(player_two_score) + "\n" #當局分數
                 
-                if Game_data[i]['si'] == 441: #足球
-                    text3 += "目前進行時間 : " + Game_data[i]['ed'][21:23] + " 分鐘\n" #目前進行時間
+                if data[i]['si'] == 441: #足球
+                    text3 += "目前進行時間 : " + data[i]['ed'][21:23] + " 分鐘\n" #目前進行時間
 
-                res1 = requests.get("https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID={}".format(Game_data[i]['mi']), headers = headers)
+                res1 = requests.get("https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID={}".format(data[i]['mi']), headers = headers)
                 if res1.status_code == 200 :
                     text3 += "場中動畫連結\n"
-                    text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi']) + "\n"
+                    text3 += "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(data[i]['mi']) + "\n"
                 message0 = TextSendMessage(
                     text=text3
                 )
@@ -470,11 +491,10 @@ def test(event):
         ua = UserAgent()
         user_agent = ua.random
         headers = {'user-agent': user_agent}
-        res = requests.get("https://www.sportslottery.com.tw/api/services/app/LiveGames/GetLiveOnAndRegister?isContainRegister=false", headers = headers)
+        res = requests.get("https://blob.sportslottery.com.tw/apidata/Live/On.json", headers = headers)
         #print(res.status_code) #顯示網頁回傳狀態
         data = res.json()
-        Game_data = data['result']['liveOn']
-        if len(Game_data) == 0:
+        if len(data) == 0:
             message = [TextSendMessage(text = "目前無任何比賽，以下是即將開始的比賽")]
             ub = UserAgent()
             user_agent = ub.random
@@ -618,40 +638,40 @@ def test(event):
             line_bot_api.reply_message(event.reply_token, message)
         else:
             message =[]
-            for i in range(len(Game_data)):
-                Game_name = Game_data[i]['ln'][0] #比賽名稱
-                player_one_chinese = Game_data[i]['atn'][0] #中文名字
-                player_one_english = Game_data[i]['atn'][1] #英文名字
-                player_two_chinese = Game_data[i]['htn'][0] #中文名字
-                player_two_english = Game_data[i]['htn'][1] #英文名字
-                player_one_score = Game_data[i]['as'].get('10') #當局分數 ex:tennis 
-                player_two_score = Game_data[i]['hs'].get('10') #當局分數 ex:tennis
+            for i in range(len(data)):
+                Game_name = data[i]['ln'][0] #比賽名稱
+                player_one_chinese = data[i]['atn'][0] #中文名字
+                player_one_english = data[i]['atn'][1] #英文名字
+                player_two_chinese = data[i]['htn'][0] #中文名字
+                player_two_english = data[i]['htn'][1] #英文名字
+                player_one_score = data[i]['as'].get('10') #當局分數 ex:tennis 
+                player_two_score = data[i]['hs'].get('10') #當局分數 ex:tennis
 
                 text3 = Game_name  + "\n"
                 text3 += player_one_chinese + " : " + player_two_chinese + "\n"
-                for b in range(len(Game_data[i]['as'])):
+                for b in range(len(data[i]['as'])):
                     b = b + 1
-                    player_one_as = Game_data[i]['as'].get(str(b)) #分數
+                    player_one_as = data[i]['as'].get(str(b)) #分數
                     if player_one_as == -1 :
                         break
                     else:
-                        player_two_hs = Game_data[i]['hs'].get(str(b)) #分數
+                        player_two_hs = data[i]['hs'].get(str(b)) #分數
                         text3 += "第"+ str(b) +"局" + str(player_one_as) + " : " + str(player_two_hs) + "\n"
 
-                if Game_data[i]['si'] == 443: #棒球
+                if data[i]['si'] == 443: #棒球
                     Team_name = player_one_chinese + " vs " + player_two_chinese
                     Team_name_en = player_one_english + " vs " + player_two_english
-                    Game_one_score = str(Game_data[i]['as'].get('1')) + " : " + str(Game_data[i]['hs'].get('1'))
+                    Game_one_score = str(data[i]['as'].get('1')) + " : " + str(data[i]['hs'].get('1'))
                     total_score = 0
                     Game_score = []
-                    for a in range(len(Game_data[i]['as'])):
-                        if Game_data[i]['as'].get(str(a)) == -1:
+                    for a in range(len(data[i]['as'])):
+                        if data[i]['as'].get(str(a)) == -1:
                             Game_score[a+1] = " "
                             Game_score[a+1] = str(Game_score[a+1])
                         else:
-                            Game_score[a+1] = str(Game_data[i]['as'].get(str(a))) + " : " + str(Game_data[i]['hs'].get(str(a)))
+                            Game_score[a+1] = str(data[i]['as'].get(str(a))) + " : " + str(data[i]['hs'].get(str(a)))
                             Game_score[a+1] = str(Game_score[a+1])
-                            total_score = total_score + Game_data[i]['as'].get(str(a)) + Game_data[i]['hs'].get(str(a))
+                            total_score = total_score + data[i]['as'].get(str(a)) + data[i]['hs'].get(str(a))
                             total_score = str(total_score)
                     message0 = FlexSendMessage(
                         alt_text = "Baseball",
@@ -941,19 +961,19 @@ def test(event):
                         }
                     )
                 
-                if Game_data[i]['si'] == 445: #網球
+                if data[i]['si'] == 445: #網球
                     au_score = str(player_one_score) + " : " + str(player_two_score) #當局分數
                     Team_name = player_one_chinese + " vs " + player_two_chinese
-                    Game_one_score = str(Game_data[i]['as'].get('1')) + " : " + str(Game_data[i]['hs'].get('1'))
-                    Game_animation_url = "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi'])
-                    if Game_data[i]['as'].get('2') == -1:
+                    Game_one_score = str(data[i]['as'].get('1')) + " : " + str(data[i]['hs'].get('1'))
+                    Game_animation_url = "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(data[i]['mi'])
+                    if data[i]['as'].get('2') == -1:
                         Game_two_score = " "
                     else:
-                        Game_two_score = str(Game_data[i]['as'].get('2')) + " : " + str(Game_data[i]['hs'].get('2'))                                    
-                    if Game_data[i]['as'].get('3') == -1:
+                        Game_two_score = str(data[i]['as'].get('2')) + " : " + str(data[i]['hs'].get('2'))                                    
+                    if data[i]['as'].get('3') == -1:
                         Game_three_score = " "
                     else:
-                        Game_three_score = str(Game_data[i]['as'].get('3')) + " : " + str(Game_data[i]['hs'].get('3'))
+                        Game_three_score = str(data[i]['as'].get('3')) + " : " + str(data[i]['hs'].get('3'))
                     message0 = FlexSendMessage(
                         alt_text= "Tennis",
                         contents= {
@@ -1107,15 +1127,15 @@ def test(event):
                         }
                     )
 
-                if Game_data[i]['si'] == 441: #足球
-                    Game_animation_url = "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(Game_data[i]['mi'])
-                    Game_time = "目前進行時間 : " + Game_data[i]['ed'][21:23] + " 分鐘" #目前進行時間
+                if data[i]['si'] == 441: #足球
+                    Game_animation_url = "https://h2h.sportslottery.com.tw/sportradar/zht/h2h.html?matchID=" + str(data[i]['mi'])
+                    Game_time = "目前進行時間 : " + data[i]['ed'][21:23] + " 分鐘" #目前進行時間
                     Team_name = player_one_chinese + " vs " + player_two_chinese
-                    Game_one_score = str(Game_data[i]['as'].get('1')) + " : " + str(Game_data[i]['hs'].get('1'))
-                    if Game_data[i]['as'].get('2') == -1:
+                    Game_one_score = str(data[i]['as'].get('1')) + " : " + str(data[i]['hs'].get('1'))
+                    if data[i]['as'].get('2') == -1:
                         Game_two_score = " "
                     else:
-                        Game_two_score = str(Game_data[i]['as'].get('2')) + " : " + str(Game_data[i]['hs'].get('2'))
+                        Game_two_score = str(data[i]['as'].get('2')) + " : " + str(data[i]['hs'].get('2'))
                     message0 = FlexSendMessage(
                         alt_text= "Soccer",
                         contents = {

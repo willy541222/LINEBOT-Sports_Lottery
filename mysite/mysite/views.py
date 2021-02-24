@@ -27,75 +27,6 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
-'''
-def Helloworld(request):
-    return HttpResponse('Hello World!')
-
-
-@csrf_exempt
-def callback(request):
-    signature = request.headers['X-Line-Signature']
-
-    # get request body as text
-    body = request.body.decode('utf-8')
-    #app.logger.info("Request body: " + body)
-
-    # parse webhook body
-    try:
-        events = parser.parse(body, signature)
-    except InvalidSignatureError:
-        pass
-
-    # if event is MessageEvent and message is TextMessage, then echo text
-    for event in events:
-        if not isinstance(event, MessageEvent):
-            continue
-        if not isinstance(event.message, TextMessage):
-            continue
-
-        mtext = event.message.text
-        if mtext == '@我要查詢清關狀態':
-            func.track(event)
-        else :
-            line_bot_api.reply_message(
-                 event.reply_token,
-                 TextSendMessage(text=mtext)
-            )
-
-    return HttpResponse
-
-@csrf_exempt
-def testPost(request):
-    if request.method == "POST":
-       body = request.body.decode('UTF-8')
-       jBody = json.loads(body)
-       print(jBody)
-       print(jBody['Question'])
-       answer = jBody['Question'].split(" ")
-       if  answer[1]=='+':
-           ans = int(answer[0])+int(answer[2])
-
-       elif answer[1]=='-':
-           ans = int(answer[0])-int(answer[2])
-
-       elif answer[1]=='*':
-           ans = int(answer[0])*int(answer[2])
-
-       elif answer[1]=='%':
-           ans = int(answer[0])%int(answer[2])
-        
-       elif answer[1]=='|':
-           ans = answer[0]+'410502226'+answer[2]
-    
-       responseDict = {} 
-       responseDict['Result']= ans
-       return JsonResponse(responseDict)
-    else:
-        responseDict = {} 
-        responseDict['method']='GET'
-        return JsonResponse(responseDict)
-'''
-
 @csrf_exempt
 def callback(request):
     signature = request.headers['X-Line-Signature']
@@ -118,24 +49,16 @@ def callback(request):
             continue
         userid, mode = readData(event)
         mtext = event.message.text
-        if mtext == '@賠率換算':
-            func.Togglemode(event, mode, userid)
+        if mtext == '@使用說明':
+            func.manual(event)
+        #if mtext == '@賠率換算':
+        #   func.Togglemode(event, mode, userid)
         elif mtext == '@場中賽況':
             func.game_processing(event)
         elif mtext == '測試':
             func.test(event)
         else :
             func.send_calc(event, mode, mtext)
-
-            '''
-            line_bot_api.reply_message(
-                 event.reply_token,
-                 TextSendMessage(text=mtext)
-            )
-            
-
-    return HttpResponse
-    '''
 
 def readData(event):
     userid = event.source.user_id
