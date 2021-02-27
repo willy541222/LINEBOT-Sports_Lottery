@@ -323,13 +323,14 @@ def test(event):
             res1 = requests.get(url, headers = headers)
             #msg = res1.status_code
             df = pd.read_html(res1.text)[0]
-            now = datetime.datetime.now()
-            now_time = now.strftime("%Y-%m-%d")
+            now = datetime.utcnow().replace(tzinfo=timezone.utc)
+            tw_time = now.astimezone(timezone(timedelta(hours=8)))
+            now_time = tw_time.strftime("%Y-%m-%d")
             for i in range(len(df.index)):
                 df1 = df.iloc[i][0].split('/')
                 df_year = str(int(df1[0]) + 1911)
                 df_time = df_year + '-' + df1[1] +'-'+ df1[2]
-                time_cond = int(df.iloc[i][2][:2])-int(now.strftime("%H"))
+                time_cond = int(df.iloc[i][2][:2])-int(tw_time.strftime("%H"))
                 if df_time == now_time and df.iloc[i][-1] == '單場+場中' and time_cond>0:
                     #print(df.iloc[i][1::])
                     game_name = df.iloc[i][3]
