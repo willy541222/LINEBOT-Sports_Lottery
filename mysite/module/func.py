@@ -315,7 +315,7 @@ def test(event):
         #print(res.status_code) #顯示網頁回傳狀態
         data = res.json()
         if len(data) == 0:
-            message = [TextSendMessage(text = "目前無任何比賽，以下是即將開始的比賽")]
+            message = [TextSendMessage(text = "目前無任何比賽，以下是即將開始的單場暨場中")]
             ub = UserAgent()
             user_agent = ub.random
             headers = {'user-agent': user_agent}
