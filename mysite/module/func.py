@@ -315,6 +315,7 @@ def test(event):
         #print(res.status_code) #顯示網頁回傳狀態
         data = res.json()
         if len(data) == 0:
+            count = 0
             message = [TextSendMessage(text = "目前無任何比賽，以下是即將開始的單場暨場中")]
             ub = UserAgent()
             user_agent = ub.random
@@ -332,6 +333,7 @@ def test(event):
                 df_time = df_year + '-' + df1[1] +'-'+ df1[2]
                 time_cond = int(df.iloc[i][2][:2])-int(tw_time.strftime("%H"))
                 if df_time == now_time and df.iloc[i][-1] == '單場+場中' and time_cond>0:
+                    count += 1
                     #print(df.iloc[i][1::])
                     game_name = df.iloc[i][3]
                     away_team = df.iloc[i][4]
@@ -452,6 +454,8 @@ def test(event):
                         }
                     )
                     message.append(message1)
+                    if count == 4:
+                        break
             if message1 == None:
                 message = TextSendMessage(
                     text = "今天沒有任何比賽了"
